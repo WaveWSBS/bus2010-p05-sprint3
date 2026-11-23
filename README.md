@@ -3,6 +3,8 @@
 BUS2010 Co-op Platform · P05 AI-Assisted Opportunity Matching & Policy Assistant.
 All people, employers, records and decisions are synthetic.
 
+- **Live portal (Sprint 3, campus LAN HTTPS):** https://pms3.mbzuai.wavew.sbs
+- **Repository (Sprint 3):** https://github.com/WaveWSBS/bus2010-p05-sprint3
 - **Repository (Sprint 2 baseline):** https://github.com/TheCYPER/bus2010-p05-opportunity-matcher
 - **Shared database guide for partner teams:** [docs/SUPABASE_GUIDE.md](docs/SUPABASE_GUIDE.md)
 - **AI method record (Sprint 2 + Sprint 3 audit):** [docs/AI_METHOD.md](docs/AI_METHOD.md)

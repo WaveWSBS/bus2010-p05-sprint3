@@ -521,7 +521,7 @@
     var audit = CHAT ? CHAT.runAudit() : { passed: 0, total: 0, results: [], kb_count: 0 };
     var lim = CHAT ? CHAT.LIMITATION_RECORD : {};
     var embedBase = (location.protocol === 'http:' && (location.hostname === '127.0.0.1' || location.hostname === 'localhost')) || location.protocol === 'file:'
-      ? 'https://<your-github-pages-url>/bus2010-p05-sprint3/' : location.href.split('#')[0].split('?')[0];
+      ? 'https://pms3.mbzuai.wavew.sbs/' : location.href.split('#')[0].split('?')[0];
     var embedUrl = embedBase + '#assistant';
     var embedSnippet = '<iframe src="' + embedUrl + '" title="IPP Policy Assistant (P05)" style="width:100%;height:620px;border:1px solid #C5CEB5;border-radius:16px;"></iframe>';
     var left = '<section class="sec" aria-label="Interactive Policy Assistant"><div class="sec-head"><h2>Ask the grounded FAQ assistant</h2><p>Runs 100% client-side in this browser (no localhost server required). Refuses unknown rules, waiver requests, and personal data without inventing policy.</p></div>' + chatbotPanelHtml(false) + '</section>';
@@ -1026,7 +1026,7 @@
       }
       if (a === 'copy-embed') {
         var eb = (location.protocol === 'http:' && (location.hostname === '127.0.0.1' || location.hostname === 'localhost')) || location.protocol === 'file:'
-          ? 'https://<your-github-pages-url>/bus2010-p05-sprint3/' : location.href.split('#')[0].split('?')[0];
+          ? 'https://pms3.mbzuai.wavew.sbs/' : location.href.split('#')[0].split('?')[0];
         var snip = '<iframe src="' + eb + '#assistant" title="IPP Policy Assistant (P05)" style="width:100%;height:620px;border:1px solid #C5CEB5;border-radius:16px;"></iframe>';
         if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(snip).then(function () { toast('Iframe embed snippet copied.'); }, function () { toast('Clipboard blocked; copy from the code box.'); });
         else toast('Copy from the code box above.');

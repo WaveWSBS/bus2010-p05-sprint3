@@ -20,7 +20,7 @@ Team 5 (P05) · BUS2010 Co-op Platform · Sprint 3 Integration Readiness Review
 
 ## 2. Exact 4-Minute Live Demo Script (Zero Localhost)
 
-**Pre-demo check:** Open the GitHub Pages URL (or double-click `index.html?demo` locally). Ensure Light mode is active and click **Skip for now** if the welcome modal opens.
+**Pre-demo check:** Open https://pms3.mbzuai.wavew.sbs (campus LAN) (or double-click `index.html?demo` locally). Ensure Light mode is active and click **Skip for now** if the welcome modal opens.
 
 1. **Unified Portal & IPP Policy Assistant (`IPP Assistant` tab or `Ask IPP Assistant`):**
    - Point to the unified MBZUAI IPP header and 6-module ribbon (`P01` through `P07`).

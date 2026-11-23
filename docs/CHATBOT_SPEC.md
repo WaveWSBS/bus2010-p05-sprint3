@@ -5,7 +5,7 @@ Team 5 (P05) · Sprint 3 · BUS2010 Co-op Platform
 ## 1. Does the Chatbot need `localhost` or a backend server?
 
 **No.** `src/chatbot.js` runs **100% client-side inside the static browser page** (`index.html`), so it works identically when:
-- Hosted publicly on **GitHub Pages** (e.g. `https://<user>.github.io/<repo>/`), or
+- Hosted on our static HTTPS portal (`https://pms3.mbzuai.wavew.sbs/`), or
 - Opened directly from disk as a local file (`double-click index.html`) with **zero localhost server**, zero Python/Node process, and zero API keys.
 
 Why this architecture was chosen for Sprint 3:
@@ -55,9 +55,9 @@ Every call to `P05Chatbot.ask(question)` executes three deterministic stages:
 
 Any partner team's static web page (Lovable, React, or plain HTML) can embed the assistant with **one iframe** or **one script tag**, requiring zero backend changes:
 
-### Option A — Script Include (same-origin or GitHub Pages asset)
+### Option A — Script Include (same-origin or hosted static asset)
 ```html
-<script src="https://<your-github-pages-url>/src/chatbot.js"></script>
+<script src="https://pms3.mbzuai.wavew.sbs/src/chatbot.js"></script>
 <script>
   const reply = window.P05Chatbot.ask("Who approves official co-op placements?");
   console.log(reply.status, reply.faq_id, reply.source, reply.answer);
@@ -68,7 +68,7 @@ Any partner team's static web page (Lovable, React, or plain HTML) can embed the
 ```html
 <iframe
   id="ipp-assistant"
-  src="https://<your-github-pages-url>/#assistant"
+  src="https://pms3.mbzuai.wavew.sbs/#assistant"
   title="IPP Policy Assistant (P05)"
   style="width:100%;height:620px;border:1px solid #C5CEB5;border-radius:16px;">
 </iframe>

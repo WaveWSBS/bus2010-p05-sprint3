@@ -137,9 +137,9 @@ In Sprint 1 we built a deterministic walking skeleton; in Sprint 2 we integrated
     tf3.clear()
     add_bullet_rich(tf3, "Task & SoS Coordination", "Microsoft Teams for sprint planning and Scrum-of-Scrums tracking; WhatsApp for rapid daily team coordination.", first=True, size=17, space_after=14)
     add_bullet_rich(tf3, "Documentation & Governance", "Google Drive/Docs plus versioned Markdown engineering specs (AI_METHOD.md, SUPABASE_GUIDE.md, CHATBOT_SPEC.md, Quick Test Pack).", size=17, space_after=14)
-    add_bullet_rich(tf3, "Unified Web Portal", "Evolved from Lovable prototype to a Claude-assisted, self-contained HTML/CSS/JS portal (0 localhost; runs on GitHub Pages or offline index.html).", size=17, space_after=14)
+    add_bullet_rich(tf3, "Unified Web Portal", "Evolved from Lovable prototype to a Claude-assisted, self-contained HTML/CSS/JS portal (0 localhost; runs on HTTPS portal or offline index.html).", size=17, space_after=14)
     add_bullet_rich(tf3, "AI & Policy Assistant", "Pretrained Supabase/gte-small sentence embeddings (384-dim) + Supabase Edge Function (ai-suggest) + deterministic grounded FAQ Chatbot (grounded-faq-1.0.0).", size=17, space_after=14)
-    add_bullet_rich(tf3, "Shared Backend & Quality", "Shared Supabase PostgreSQL (RLS + per-team write keys), GitHub version control & GitHub Pages hosting, plus 26/26 automated Node & browser checks.", size=17, space_after=0)
+    add_bullet_rich(tf3, "Shared Backend & Quality", "Shared Supabase PostgreSQL (RLS + per-team write keys), GitHub version control & campus Nginx HTTPS hosting, plus 26/26 automated Node & browser checks.", size=17, space_after=0)
 
     set_notes(s2, """ALGHALA — Slide 2 (Technology Stack)
 Here is the technology stack Team 5 used across Sprint 1 to Sprint 3.
@@ -226,7 +226,7 @@ US 3 delivers the unified IPP portal shell and an end-to-end simulated partner l
     tfb = s4_b.text_frame
     tfb.clear()
     add_para(tfb, "Live Access (Zero Localhost)", first=True, size=16, bold=True, color=TEAL, space_after=4)
-    add_para(tfb, "• Web Portal: GitHub Pages (public repo link to be confirmed) + standalone index.html offline backup\n• Baseline Demo: https://thecyper.github.io/bus2010-p05-opportunity-matcher/", size=12.5, color=INK, space_after=10)
+    add_para(tfb, "• Live Portal: https://pms3.mbzuai.wavew.sbs (campus HTTPS) + offline index.html backup\n• Public Repo: https://github.com/WaveWSBS/bus2010-p05-sprint3", size=12.5, color=INK, space_after=10)
     add_para(tfb, "4-Step End-to-End Demo Journey", size=16, bold=True, color=TEAL, space_after=4)
     add_bullet_rich(tfb, "1. Ask IPP Assistant", "Ask how matching works (FAQ-01) and test waiver refusal guard (refused + human escalation).", size=13, space_after=6)
     add_bullet_rich(tfb, "2. View Top 3 Matches", "Layla (COOP-B001): rules decide eligibility; gte-small only reorders interest fit.", size=13, space_after=6)
@@ -240,7 +240,7 @@ US 3 delivers the unified IPP portal shell and an end-to-end simulated partner l
     add_para(cap4.text_frame, "Live view: Grounded FAQ-01 answer with source citation + Refusal Guard blocking skill waiver", first=True, size=11.5, bold=True, color=NAVY, align=PP_ALIGN.CENTER, space_after=0)
 
     set_notes(s4, """CHE LIU — Slide 4 (Project Demo)
-Now let's walk through the live application. Everything runs as a static web portal—meaning zero localhost setup, works on GitHub Pages, and has an identical offline index.html fallback.
+Now let's walk through the live application. Everything runs as a static web portal—meaning zero localhost setup, hosted live at pms3.mbzuai.wavew.sbs, and has an identical offline index.html fallback.
 Our 4-step demo directly answers the Sprint 3 integration prompt:
 First, in IPP Assistant, a student asks how matching works and gets a cited FAQ-01 policy answer; when tested with a waiver bypass prompt, the guard explicitly refuses and routes to human staff.
 Second, in My matches for Layla, we show her Top 3 ranked opportunities with clear reasons and why Jira is marked "One thing to do".

@@ -2,7 +2,7 @@
  * IPP Policy FAQ Assistant — Team 5 (P05), Sprint 3
  *
  * Zero-localhost, deterministic, grounded FAQ assistant designed to run identically
- * in a static browser page (GitHub Pages or offline index.html) and in Node tests.
+ * in a static browser page (static HTTPS portal or offline index.html) and in Node tests.
  *
  * Guardrails:
  *   1. Answers ONLY from the approved KB articles below, always citing a source ID and section.
