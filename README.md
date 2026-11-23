@@ -1,19 +1,21 @@
-# P05 Opportunity Matcher — Team 5 prototype (Sprint 2 increment)
+# P05 Opportunity Matcher & IPP Assistant — Team 5 prototype (Sprint 3 increment)
 
-BUS2010 Co-op Platform · P05 AI-Assisted Opportunity Matching.
+BUS2010 Co-op Platform · P05 AI-Assisted Opportunity Matching & Policy Assistant.
 All people, employers, records and decisions are synthetic.
 
-- **Live prototype:** https://thecyper.github.io/bus2010-p05-opportunity-matcher/
-- **Repository:** https://github.com/TheCYPER/bus2010-p05-opportunity-matcher
+- **Repository (Sprint 2 baseline):** https://github.com/TheCYPER/bus2010-p05-opportunity-matcher
 - **Shared database guide for partner teams:** [docs/SUPABASE_GUIDE.md](docs/SUPABASE_GUIDE.md)
-- **AI method record:** [docs/AI_METHOD.md](docs/AI_METHOD.md)
+- **AI method record (Sprint 2 + Sprint 3 audit):** [docs/AI_METHOD.md](docs/AI_METHOD.md)
+- **Grounded FAQ Chatbot spec & embed guide:** [docs/CHATBOT_SPEC.md](docs/CHATBOT_SPEC.md)
+- **Sprint 3 deck, speaker notes & quick test pack:** `sprint3/`
 
-## Run it
+## Run it (Zero Localhost)
 
 - **Open `index.html`** in any browser (double-click). It loads the shared BUS2010 database; if that cannot be reached it says "Demo data — couldn't reach the shared database" and uses the six built-in students. Add `?demo` to the address to force the offline copy.
-- Tests: `node tests/run-tests.js` (21 checks on the fixtures with precomputed AI scores).
-- Live checks (maintainer, needs `supabase/.env.local` and `supabase/team-keys.private.md`): `node scripts/verify_live.mjs` (demo slice equals `src/data.js`, the 21 checks on live data, row counts, access rules) and `node scripts/test_guide_examples.mjs` (runs every example in the partner guide).
-- Rebuild `index.html` after editing `src/`: `python3 build.py`, then copy `dist/index.html` over `index.html`.
+- **Automated tests (26 checks):** `node tests/run-tests.js` (21 baseline checks + 5 Sprint 3 checks for Chatbot grounding/refusal `C1–C3`, `ai-embed-1.1.0` synonym fix `A4`, and end-to-end human sign-off `E2`).
+- **Verify real `gte-small` synonym fix:** `node scripts/verify_synonym_fix.mjs`
+- **Live checks (maintainer, needs `supabase/.env.local` and `supabase/team-keys.private.md`):** `node scripts/verify_live.mjs` and `node scripts/test_guide_examples.mjs`.
+- **Rebuild `index.html` after editing `src/`:** `python3 build.py`, then copy `dist/index.html` over `index.html`.
 
 ## Files
 
@@ -23,9 +25,10 @@ All people, employers, records and decisions are synthetic.
 | `src/ai-signals.js` | Precomputed gte-small scores for the demo slice (generated), so the AI method also works offline. |
 | `src/config.js` | Database URL and publishable (read-only) key. No team keys. |
 | `src/supabase-source.js` | Reads the shared database over REST and maps rows into the engine's data shape; AI scores (`rpc/ai_signals`), live phrase suggestions (`functions/v1/ai-suggest`), opt-in writes with the P05 key. |
-| `src/engine.js` | Matching engine: rules baseline `rules-1.0.0` and AI method `ai-embed-1.0.0`, three-state conditions, explanations, immutable records, gap events, recompute, notes, method versions. |
+| `src/engine.js` | Matching engine: rules baseline `rules-1.0.0`, AI methods `ai-embed-1.0.0`/`1.1.0`, immutable records, gap events, simulated partner loop state. |
+| `src/chatbot.js` | Zero-localhost grounded IPP Policy FAQ Assistant (`grounded-faq-1.0.0`), 8 KB articles, waiver/out-of-scope refusal guard, 7-case QA audit. |
 | `src/eval.js` | Rules vs AI comparison on 30 labelled pairs (labels provisional). |
-| `src/tests.js` | 21 checks: D1–D8, M1, M2, R1, R2, H1, I1, I2, S1, A1–A3, E1, L1. |
+| `src/tests.js` | 26 checks: D1–D8, M1, M2, R1, R2, H1, I1, I2, S1, A1–A4, E1, E2, L1, C1–C3. |
 | `src/app.js`, `src/styles.css`, `src/app.html` | Browser UI. |
 | `supabase/migrations/` | Shared database schema, access rules (RLS + team keys), views, AI functions. |
 | `supabase/seed/` | Generated synthetic data (`node scripts/generate_seed.mjs`, fixed seed). `supabase/sandbox/` holds practice records for other teams. |
@@ -57,8 +60,17 @@ The first time the page opens, a welcome screen explains the 7-step co-op journe
 
 "Start the demo over" on the Data page resets everything.
 
+## Sprint 3 additions to the demo
+
+- **Unified MBZUAI IPP Portal header & P01–P07 ribbon:** cohesive navigation across all modules with honest `Live P05` vs `Simulated` badges.
+- **IPP Policy Assistant (`#assistant` & global drawer):** 0-localhost grounded FAQ chatbot answering 8 policy articles with citations, refusing waiver/GPA/visa/stipend queries without inventing rules, plus copyable iframe embed plan.
+- **Synonym failure fix & retest (`ai-embed-1.1.0`):** `"customer journey mapping"` fixed from Healthcare (`0.8558`) to #1 UX Research (`0.8827`); `"kanban ticket triage"` raised `0.8062 → 0.8590`; SQL migration `supabase/migrations/20261123100000_sprint3_synonym_fix.sql` packaged.
+- **End-to-end simulated partner loop:** employer comments (`P02/P03`), student progress reports (`P07`), and human-signed professor grading (`ai_graded: false`) inside `Partner teams`.
+- **Quality checks:** 26 of 26 automated checks pass.
+
 ## Working / simulated / deferred
 
-- **Working:** shared Supabase database with per-team write keys and row level security; live data in the prototype with offline fallback; rules baseline with editable weights and method versions; AI method with a pretrained embedding model (gte-small) for goal ↔ job meaning and free-text skill suggestions, labelled and bounded; three-state conditions; explanations with field and version citations; skill gaps; recompute with history; challenges and coordinator review; correction notes; immutable records; 21 checks; live verification scripts.
-- **Simulated:** P01 profile edits and P06 reviews inside the prototype (they are stored in this browser; the real teams write to the database themselves); identities (role tabs, no sign-in); coordinator labels (written by Team 5 as a stand-in).
-- **Deferred:** labels from a real coordinator (20+ pairs); jointly tested live hand-off with P06; usability test with three non-builders; synonym fixes found by the AI failure analysis.
+- **Working:** shared Supabase database with per-team write keys and row level security; live data in the prototype with offline fallback; rules baseline with editable weights and method versions; pretrained embedding model (`gte-small`) + Sprint 3 synonym fix verified locally (`ai-embed-1.1.0`); zero-localhost grounded FAQ Chatbot (`7/7` QA audit); three-state conditions; explanations with citations; skill gaps; immutable records; 26 checks.
+- **Simulated:** P01 profile edits, P06 skill reviews, and P02/P07 employer comments, progress reports, and faculty grades inside the prototype (stored in the browser); identities (role tabs, no sign-in); provisional stand-in labels (`src/eval.js`).
+- **Deferred (worksheets ready in `sprint3/P05_Sprint_3_Quick_Test_Pack.md`):** live cross-team partner DB writes; 20+ independent coordinator labels; usability test with 3 non-builder classmates.
+

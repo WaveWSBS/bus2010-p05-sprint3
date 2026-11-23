@@ -64,3 +64,29 @@ Reading: the full ranking is the same because "can apply now" always comes first
 ## Limits
 
 Six labelled students is far too few; labels are ours, not a coordinator's; gte-small is an English model and has not been checked on Arabic text; scores sit in a narrow band (most between 0.78 and 0.86), so the thresholds matter and should be revisited with real labels.
+
+---
+
+## Sprint 3 updates (`ai-embed-1.1.0` & Grounded FAQ Assistant, 23 November 2026)
+
+### 1. Real `Supabase/gte-small` Synonym Correction & Retest (`ai-embed-1.1.0`)
+
+Following the Sprint 2 failure analysis above, we added synonyms to `SK-UX-01` (`customer journey`, `customer journey mapping`, `user journey`, `usability research` in `scripts/lib/world.mjs`) and `SK-JIRA-01` (`kanban`, `kanban board`, `ticket triage` in `src/data.js`), packaged as `supabase/migrations/20261123100000_sprint3_synonym_fix.sql`.
+
+Running `node scripts/verify_synonym_fix.mjs --write` with `Supabase/gte-small` (`pooling: 'mean', normalize: true`, threshold `0.84`, 44 skills) measured:
+
+| Benchmark Phrase | Intended Skill | Before (`ai-embed-1.0.0`) | After (`ai-embed-1.1.0`) | Outcome |
+| --- | --- | --- | --- | --- |
+| `"customer journey mapping"` | `SK-UX-01` UX research | #1 `SK-HLT-01` (`0.8558`), #2 `SK-SCM-01` (`0.8501`) — wrong | #1 `SK-UX-01` (**`0.8827`**), #2 `SK-HLT-01` (`0.8558`) | Intended skill leaps to #1 (+0.0269 above `SK-HLT-01`); human review remains required |
+| `"kanban ticket triage"` | `SK-JIRA-01` Jira work-item management | #1 `SK-JIRA-01` (`0.8062`, below 0.84) | #1 `SK-JIRA-01` (**`0.8590`**, above 0.84) | Crosses suggestion threshold (+0.0528) |
+| `"agile board hygiene"` (regression) | `SK-AGL-01` / `SK-JIRA-01` | `SK-AGL-01` (`0.8783`), `SK-JIRA-01` (`0.8583`) | `SK-AGL-01` (`0.8783`), `SK-JIRA-01` (`0.8533`) | Both remain suggested (`>= 0.84`) |
+| `"data storytelling for executives"` (sanity) | `SK-COM-01` | `SK-COM-01` (`0.8398`) | `SK-COM-01` (`0.8398`) | Unchanged |
+
+- **Eligibility invariant:** `0` changes across `36` student-opportunity pairs (`rules-1.0.0` vs `ai-embed`).
+- **Deployment note:** Measured scores are recorded in `src/ai-signals.js` (`sprint3_synonym_audit`) and visible in the Coordinator view; the SQL migration is ready to run on the shared Supabase project (where `ai-suggest` serves `1.0.0` until DB embeddings are regenerated).
+
+### 2. Zero-Localhost Grounded IPP Policy FAQ Assistant (`grounded-faq-1.0.0`)
+
+- Implemented in `src/chatbot.js` (`P05Chatbot`) and embedded into the portal (`#assistant` tab + global `Ask IPP Assistant` drawer), running 100% client-side with zero localhost server.
+- Answers 8 approved IPP policy articles (`FAQ-01`..`FAQ-08`) with section citations and human-approval boundaries, and enforces a pre-retrieval `EXCLUSION_PATTERNS` guard so waiver, bypass, visa, stipend, GPA, and personal-ID queries are always refused and escalated to human staff (`7/7` QA audit pass; full details in `docs/CHATBOT_SPEC.md`).
+

@@ -28,7 +28,7 @@ export const NEW_SKILLS = [
   ['SK-FIN-01', 'Financial analysis', ['financial modelling', 'valuation', 'budgeting', 'forecasting'], 'business'],
   ['SK-ACC-01', 'Accounting basics', ['accounting', 'bookkeeping', 'ifrs', 'reconciliation'], 'business'],
   ['SK-MKT-01', 'Digital marketing analytics', ['digital marketing', 'google analytics', 'campaigns', 'social media analytics'], 'business'],
-  ['SK-UX-01', 'UX research', ['user research', 'usability testing', 'interviews', 'personas'], 'design'],
+  ['SK-UX-01', 'UX research', ['user research', 'usability testing', 'interviews', 'personas', 'customer journey', 'customer journey mapping', 'user journey', 'usability research'], 'design'],
   ['SK-FIG-01', 'Figma prototyping', ['figma', 'wireframes', 'prototypes', 'ui design'], 'design'],
   ['SK-PMP-01', 'Project planning', ['project plan', 'gantt chart', 'ms project', 'scheduling'], 'ways of working'],
   ['SK-RISK-01', 'Risk analysis', ['risk register', 'risk assessment', 'mitigation'], 'business'],

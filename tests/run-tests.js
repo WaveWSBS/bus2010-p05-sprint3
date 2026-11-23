@@ -4,6 +4,7 @@ const path = require('path');
 // Fixtures plus the precomputed gte-small signals, as the prototype uses them offline.
 const DATA = Object.assign({}, require(path.join(__dirname, '..', 'src', 'data.js')), { ai: require(path.join(__dirname, '..', 'src', 'ai-signals.js')) });
 const E = require(path.join(__dirname, '..', 'src', 'engine.js'));
+global.P05Chatbot = require(path.join(__dirname, '..', 'src', 'chatbot.js'));
 const T = require(path.join(__dirname, '..', 'src', 'tests.js'));
 
 const out = T.run(E, DATA);

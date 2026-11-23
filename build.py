@@ -22,9 +22,12 @@ def read(name):
 
 def fragment():
     css = read("styles.css")
-    scripts = "".join(f"<script>\n{read(n)}\n</script>\n" for n in ["data.js", "ai-signals.js", "config.js", "engine.js", "supabase-source.js", "eval.js", "tests.js", "app.js"])
+    scripts = "".join(
+        f"<script>\n{read(n)}\n</script>\n"
+        for n in ["data.js", "ai-signals.js", "config.js", "engine.js", "chatbot.js", "supabase-source.js", "eval.js", "tests.js", "app.js"]
+    )
     return (
-        "<title>P05 Opportunity Matcher</title>\n"
+        "<title>IPP Co-op Portal · P05 Opportunity Matcher &amp; AI Assistant</title>\n"
         '<meta name="claude:viewport-fit-sides" content="cover">\n'
         f"{FONTS}\n<style>\n{css}\n</style>\n{read('app.html')}\n{scripts}"
     )

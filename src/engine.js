@@ -46,6 +46,14 @@
       note: 'Sprint 2. Rules baseline plus cosine similarity of sentence embeddings (goal text vs job text; free-text skill vs vocabulary). Pretrained model, not trained by us.',
       weights: { sector: 2, role: 2, city: 1, desirable_skill: 1, goal_semantic: 3, suggested_skill: 0.5 },
       params: AI_PARAMS
+    },
+    {
+      method_version: 'ai-embed-1.1.0', family: 'ai', label: 'AI similarity (gte-small, Sprint 3 synonyms)',
+      created_at: '2026-11-23', created_by: 'Team 5',
+      model: AI_MODEL,
+      note: 'Sprint 3 audit & migration. Adds SK-UX-01 (customer journey) and SK-JIRA-01 (kanban, ticket triage) synonyms. Verified with real gte-small locally; eligibility unchanged.',
+      weights: { sector: 2, role: 2, city: 1, desirable_skill: 1, goal_semantic: 3, suggested_skill: 0.5 },
+      params: AI_PARAMS
     }
   ];
 
@@ -428,6 +436,7 @@
       schema: SCHEMA,
       recs: {}, recOrder: [], pointers: {},
       gapEvents: [], evidence: [], challenges: [], notes: [], profileAdds: [],
+      employerComments: [], progressLogs: [], chatbotEscalations: [],
       methods: clone(DEFAULT_METHODS),
       current: { rules: 'rules-1.0.0', ai: 'ai-embed-1.0.0' },
       log: []
@@ -438,11 +447,17 @@
   function createPlatform(data, state) {
     var S = state || emptyState();
     var AI = aiLookup(data.ai);
-    // Older saved states (Sprint 1) lack the embedding method: add it, keep their history.
+    // Older saved states (Sprint 1/2) lack Sprint 2/3 keys: backfill safely, keep history.
     if (!S.methods.some(function (m) { return m.method_version === 'ai-embed-1.0.0'; })) {
       S.methods.push(clone(DEFAULT_METHODS[2]));
       S.current.ai = 'ai-embed-1.0.0';
     }
+    if (!S.methods.some(function (m) { return m.method_version === 'ai-embed-1.1.0'; }) && DEFAULT_METHODS[3]) {
+      S.methods.push(clone(DEFAULT_METHODS[3]));
+    }
+    S.employerComments = S.employerComments || [];
+    S.progressLogs = S.progressLogs || [];
+    S.chatbotEscalations = S.chatbotEscalations || [];
 
     function log(actor, text) {
       S.log.push({ ts: nowIso(), actor: actor, text: text });
@@ -679,6 +694,84 @@
         .filter(function (r) { return r.student_id === student_id && r.opportunity_id === opportunity_id; });
     }
 
+    function addChatbotEscalation(opts) {
+      var escItem = {
+        escalation_id: 'ESC-' + pad(S.chatbotEscalations.length + 1, 3),
+        student_id: opts.student_id || null,
+        question: String(opts.question || '').trim(),
+        reason: String(opts.reason || '').trim(),
+        target: opts.target || 'Co-op Office / Academic Coordinator',
+        status: 'open',
+        created_at: nowIso()
+      };
+      S.chatbotEscalations.push(escItem);
+      log(opts.student_id || 'Student', 'Escalated assistant question ' + escItem.escalation_id + ' to ' + escItem.target);
+      return escItem;
+    }
+
+    function addEmployerComment(opts) {
+      var txt = String(opts.comment || '').trim();
+      var sup = String(opts.supervisor || '').trim();
+      if (!txt || !sup) throw new Error('Supervisor name and employer comment are required.');
+      var item = {
+        comment_id: 'EC-' + pad(S.employerComments.length + 1, 3),
+        placement_id: opts.placement_id || 'EG-DXB-028',
+        student_id: opts.student_id || 'COOP-B001',
+        opportunity_id: opts.opportunity_id || 'OP-028',
+        supervisor: sup,
+        comment: txt,
+        created_at: nowIso(),
+        simulated: true
+      };
+      S.employerComments.push(item);
+      log(sup + ' (P02/P03 simulated)', 'Added employer comment ' + item.comment_id + ' for ' + item.student_id);
+      return item;
+    }
+
+    function addProgressReport(opts) {
+      var entry = String(opts.entry || '').trim();
+      if (!entry) throw new Error('Progress report summary is required.');
+      var item = {
+        log_id: 'LOG-' + pad(S.progressLogs.length + 1, 4),
+        placement_id: opts.placement_id || 'EG-DXB-028',
+        student_id: opts.student_id || 'COOP-B001',
+        opportunity_id: opts.opportunity_id || 'OP-028',
+        period: opts.period || '2027 week 2',
+        goal_id: opts.goal_id || 'G-1',
+        entry: entry,
+        evidence_ids: Array.isArray(opts.evidence_ids) ? opts.evidence_ids : [],
+        review_status: 'submitted',
+        feedback: null,
+        grade: null,
+        grader: null,
+        graded_at: null,
+        graded_by_human: false,
+        ai_graded: false,
+        created_at: nowIso(),
+        simulated: true
+      };
+      S.progressLogs.push(item);
+      log(item.student_id + ' (P07 simulated)', 'Submitted progress report ' + item.log_id + ' (' + item.period + ')');
+      return item;
+    }
+
+    function gradeProgressReport(log_id, opts) {
+      var item = S.progressLogs.filter(function (l) { return l.log_id === log_id; })[0];
+      if (!item) throw new Error('Unknown progress report ' + log_id);
+      var grader = String(opts.grader || '').trim();
+      var grade = String(opts.grade || '').trim();
+      if (!grader || !grade) throw new Error('Faculty approver name and grade are required.');
+      item.feedback = String(opts.feedback || '').trim() || 'Reviewed by faculty.';
+      item.grade = grade;
+      item.grader = grader;
+      item.graded_at = nowIso();
+      item.graded_by_human = true;
+      item.ai_graded = false;
+      item.review_status = grade === 'Revision Requested' ? 'revision_requested' : 'reviewed';
+      log(grader + ' (Faculty P07 simulated)', 'Graded ' + item.log_id + ': ' + grade);
+      return item;
+    }
+
     function isCurrent(rec) {
       return S.pointers[pointerKey(rec.student_id, rec.opportunity_id, rec.method_version)] === rec.recommendation_id;
     }
@@ -705,6 +798,10 @@
       notesFor: notesFor,
       updateWeights: updateWeights,
       historyFor: historyFor,
+      addChatbotEscalation: addChatbotEscalation,
+      addEmployerComment: addEmployerComment,
+      addProgressReport: addProgressReport,
+      gradeProgressReport: gradeProgressReport,
       ai: function () { return AI; },
       isCurrent: isCurrent,
       log: log

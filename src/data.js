@@ -29,7 +29,7 @@
     { skill_id: 'SK-TAB-01', label: 'Tableau', synonyms: ['tableau', 'data visualisation'] },
     { skill_id: 'SK-XLS-01', label: 'Advanced Excel', synonyms: ['excel', 'spreadsheets', 'pivot tables'] },
     { skill_id: 'SK-STAT-01', label: 'Applied statistics', synonyms: ['statistics', 'regression', 'hypothesis testing'] },
-    { skill_id: 'SK-JIRA-01', label: 'Jira work-item management', synonyms: ['jira', 'agile board', 'sprint board', 'scrum board', 'tickets', 'issue tracking'] },
+    { skill_id: 'SK-JIRA-01', label: 'Jira work-item management', synonyms: ['jira', 'agile board', 'sprint board', 'scrum board', 'tickets', 'issue tracking', 'kanban', 'kanban board', 'ticket triage'] },
     { skill_id: 'SK-AGL-01', label: 'Agile and Scrum practice', synonyms: ['agile', 'scrum', 'kanban', 'sprint ceremonies', 'board'] },
     { skill_id: 'SK-ML-01', label: 'Machine learning fundamentals', synonyms: ['machine learning', 'scikit-learn', 'classification models'] },
     { skill_id: 'SK-AVN-01', label: 'Aviation operations domain', synonyms: ['aviation', 'airline', 'airport', 'flight operations'] },

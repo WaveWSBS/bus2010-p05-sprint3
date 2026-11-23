@@ -2,25 +2,30 @@
   <div class="wrap">
     <div class="mast-row">
       <div class="brand">
-        <span class="brand-mark" aria-hidden="true">P05</span>
+        <span class="brand-mark" aria-hidden="true">IPP</span>
         <div>
-          <div class="brand-name">Opportunity Matcher</div>
-          <div class="brand-sub">Team 5 prototype for the BUS2010 co-op platform</div>
+          <div class="brand-name">MBZUAI Co-op Platform · IPP Portal</div>
+          <div class="brand-sub">Unified Student &amp; Partner Workspace · P05 Opportunity Matching &amp; Policy Assistant (Sprint 3)</div>
         </div>
       </div>
       <div class="nav">
         <nav class="tabs" id="tabs" role="tablist" aria-label="Views"></nav>
         <div class="tools" data-tour="help">
+          <button class="tool tool-accent" data-action="assistant-drawer">Ask IPP Assistant</button>
           <button class="tool" data-action="tour">Guide</button>
           <button class="tool" data-action="glossary" aria-label="Open the glossary">?</button>
           <button class="tool" data-action="theme" id="theme-btn">Light mode</button>
         </div>
       </div>
     </div>
+    <nav class="ipp-ribbon" id="ipp-ribbon" aria-label="End-to-end IPP modules"></nav>
   </div>
 </header>
 <div class="wrap"><p class="src-line" id="src-line" role="status"></p></div>
 <main class="wrap" id="view" role="tabpanel" tabindex="-1"></main>
+<button class="chat-fab" id="chat-fab" data-action="assistant-drawer" aria-label="Open IPP Policy Assistant">
+  <span aria-hidden="true">?</span> Ask IPP Assistant
+</button>
 <div id="layer"></div>
 <div id="tip" role="tooltip" hidden></div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>

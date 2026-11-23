@@ -256,6 +256,56 @@
       return { pass: ok, actual: ok ? 'Both rows map back to identical fixture objects' : 'Mismatch: ' + JSON.stringify(mp).slice(0, 80) };
     });
 
+    // ---------- Sprint 3 checks: Grounded FAQ Chatbot, Synonym Fix Audit, End-to-End Partner Sign-Off ----------
+    var CHAT = dep('P05Chatbot', './chatbot.js');
+
+    t('C1', 'Chatbot', 'Answers five approved IPP questions with citations', 'All 5 approved internship questions return status answered with an explicit policy source', function () {
+      if (!CHAT) return { pass: false, actual: 'chatbot.js not loaded' };
+      var approved = CHAT.TEST_CASES.filter(function (tc) { return tc.kind === 'approved'; });
+      var hits = approved.filter(function (tc) {
+        var r = CHAT.ask(tc.question);
+        return r.status === 'answered' && r.faq_id === tc.expected_faq && !!r.source && !!r.human_approval_note;
+      });
+      return { pass: approved.length >= 5 && hits.length === approved.length,
+        actual: hits.length + '/' + approved.length + ' approved FAQs answered with grounded source citations' };
+    });
+
+    t('C2', 'Chatbot', 'Refuses unknown policy questions without inventing rules', 'Out-of-scope policy questions (GPA/visa/stipend or off-topic) return status refused and escalate to human', function () {
+      if (!CHAT) return { pass: false, actual: 'chatbot.js not loaded' };
+      var r1 = CHAT.ask('What is the minimum GPA, visa sponsorship rule, and monthly stipend allowance for internships?');
+      var r2 = CHAT.ask('What is the cafeteria lunch menu today?');
+      var ok = r1.status === 'refused' && r2.status === 'refused' && !!r1.escalation_target && /cannot confirm|could not find/i.test(r1.answer);
+      return { pass: ok, actual: 'GPA/visa/stipend: ' + r1.status + ' (' + r1.escalation_target + '); off-topic: ' + r2.status };
+    });
+
+    t('C3', 'Chatbot', 'Policy-exception guard blocks waiver/bypass attempts', 'Mixed prompts asking AI to waive skills or bypass coordinator approval are refused despite FAQ keywords', function () {
+      if (!CHAT) return { pass: false, actual: 'chatbot.js not loaded' };
+      var r = CHAT.ask('Can AI waive the required verified skill and approve my placement without coordinator review?');
+      return { pass: r.status === 'refused' && r.faq_id === null && !!r.escalation_target,
+        actual: 'Mixed waiver prompt status = ' + r.status + ', escalated to ' + r.escalation_target };
+    });
+
+    t('A4', 'AI', 'Sprint 3 synonym fix verified (ai-embed-1.1.0)', '"customer journey mapping" maps #1 to SK-UX-01; "kanban ticket triage" reaches >= 0.84 on SK-JIRA-01; 0 eligibility changes', function () {
+      var audit = DATA.ai && DATA.ai.sprint3_synonym_audit;
+      if (!audit || !Array.isArray(audit.cases)) return { pass: false, actual: 'sprint3_synonym_audit missing from ai-signals' };
+      var cjm = audit.cases.filter(function (c) { return c.phrase === 'customer journey mapping'; })[0];
+      var ktt = audit.cases.filter(function (c) { return c.phrase === 'kanban ticket triage'; })[0];
+      var okCjm = cjm && cjm.before[0].skill_id === 'SK-HLT-01' && cjm.after[0].skill_id === 'SK-UX-01' && cjm.after[0].score >= audit.threshold;
+      var okKtt = ktt && ktt.before[0].score < audit.threshold && ktt.after[0].skill_id === 'SK-JIRA-01' && ktt.after[0].score >= audit.threshold;
+      var okElig = audit.eligibility_changed === 0;
+      return { pass: !!(okCjm && okKtt && okElig),
+        actual: 'CJM: ' + cjm.before[0].skill_id + ' (' + cjm.before[0].score + ') → ' + cjm.after[0].skill_id + ' (' + cjm.after[0].score + '); KTT Jira: ' + ktt.before[0].score + ' → ' + ktt.after[0].score + '; eligibility changed ' + audit.eligibility_changed };
+    });
+
+    t('E2', 'End-to-end', 'Employer comment, progress report, and professor grade require human sign-off', 'Simulated partner loop stores employer comment, student progress log, and named human grade with ai_graded = false', function () {
+      var p = fresh();
+      var ec = p.addEmployerComment({ student_id: 'COOP-B001', opportunity_id: 'OP-028', supervisor: 'Tariq Al-Mansoori (synthetic)', comment: 'Strong SQL diagnostics on turnaround logs.' });
+      var log = p.addProgressReport({ student_id: 'COOP-B001', opportunity_id: 'OP-028', period: '2027 week 2', goal_id: 'G-1', entry: 'Built flight delay KPI notebook.', evidence_ids: ['E-SQL-07'] });
+      var graded = p.gradeProgressReport(log.log_id, { grade: 'A', feedback: 'Well documented and grounded in reviewed SQL evidence.', grader: 'Dr. R. Mensah (Faculty, synthetic)' });
+      var ok = ec.simulated && log.simulated && graded.graded_by_human === true && graded.ai_graded === false && graded.review_status === 'reviewed' && graded.grade === 'A';
+      return { pass: ok, actual: ec.comment_id + ' + ' + log.log_id + ' → grade ' + graded.grade + ' by ' + graded.grader + ' (ai_graded: ' + graded.ai_graded + ')' };
+    });
+
     var passed = results.filter(function (r) { return r.pass; }).length;
     return { results: results, passed: passed, total: results.length };
   }

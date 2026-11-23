@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>P05 Opportunity Matcher</title>
+<title>IPP Co-op Portal · P05 Opportunity Matcher &amp; AI Assistant</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..700&family=Figtree:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
@@ -91,20 +91,37 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .wrap { max-width: 1280px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 
 /* ---------- masthead ---------- */
-.mast { background: var(--teal); color: var(--teal-ink); border-radius: 0 0 var(--r-xl) var(--r-xl); }
-.mast-row { display: flex; align-items: center; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap; padding-block: 22px 26px; }
+.mast { background: linear-gradient(135deg, #0E3B43 0%, #0F766E 100%); color: var(--teal-ink); border-radius: 0 0 var(--r-xl) var(--r-xl); }
+:root[data-theme="dark"] .mast { background: linear-gradient(135deg, #0B2D34 0%, #0D5651 100%); }
+.mast-row { display: flex; align-items: center; justify-content: space-between; gap: 16px 24px; flex-wrap: wrap; padding-block: 20px 16px; }
 .brand { display: flex; align-items: center; gap: 14px; }
-.brand-mark { width: 46px; height: 46px; border-radius: 16px; background: var(--lime); color: var(--lime-ink); display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: 17px; flex: none; }
-.brand-name { font-family: var(--font-display); font-size: 24px; font-weight: 650; line-height: 1.05; }
-.brand-sub { font-size: 13px; color: var(--teal-ink-2); }
+.brand-mark { width: 46px; height: 46px; border-radius: 16px; background: var(--lime); color: var(--lime-ink); display: grid; place-items: center; font-family: var(--font-display); font-weight: 700; font-size: 16px; letter-spacing: -.02em; flex: none; }
+.brand-name { font-family: var(--font-display); font-size: 23px; font-weight: 650; line-height: 1.05; }
+.brand-sub { font-size: 13px; color: var(--teal-ink-2); margin-top: 2px; }
 .nav { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.tabs { display: flex; gap: 4px; flex-wrap: wrap; background: var(--teal-deep); padding: 5px; border-radius: 999px; }
-.tab { appearance: none; border: 0; background: transparent; color: var(--teal-ink); padding: 9px 15px; border-radius: 999px; cursor: pointer; font-weight: 600; font-size: 14px; white-space: nowrap; }
-.tab:hover { background: rgba(255, 255, 255, .08); }
+.tabs { display: flex; gap: 4px; flex-wrap: wrap; background: rgba(11, 45, 52, .62); padding: 5px; border-radius: 999px; }
+.tab { appearance: none; border: 0; background: transparent; color: var(--teal-ink); padding: 9px 14px; border-radius: 999px; cursor: pointer; font-weight: 600; font-size: 14px; white-space: nowrap; }
+.tab:hover { background: rgba(255, 255, 255, .1); }
 .tab[aria-selected="true"] { background: var(--lime); color: var(--lime-ink); }
-.tools { display: flex; gap: 6px; }
-.tool { appearance: none; border: 0; background: var(--teal-deep); color: var(--teal-ink); height: 42px; min-width: 42px; padding: 0 14px; border-radius: 999px; cursor: pointer; font-weight: 600; font-size: 14px; white-space: nowrap; }
+.tools { display: flex; gap: 6px; flex-wrap: wrap; }
+.tool { appearance: none; border: 0; background: rgba(11, 45, 52, .62); color: var(--teal-ink); height: 42px; min-width: 42px; padding: 0 14px; border-radius: 999px; cursor: pointer; font-weight: 600; font-size: 14px; white-space: nowrap; }
 .tool:hover { background: var(--teal-rule); }
+.tool-accent { background: #F2B134; color: #1F2933; }
+.tool-accent:hover { background: #F6C561; }
+
+/* ---------- unified IPP journey ribbon ---------- */
+.ipp-ribbon { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; padding: 0 0 18px; }
+@media (max-width: 1020px) { .ipp-ribbon { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .ipp-ribbon { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.ipp-step { appearance: none; border: 1px solid rgba(255, 255, 255, .16); background: rgba(11, 45, 52, .46); color: var(--teal-ink); border-radius: 14px; padding: 8px 11px; text-align: left; cursor: pointer; display: grid; gap: 3px; transition: background .15s ease, border-color .15s ease; }
+.ipp-step:hover { background: rgba(255, 255, 255, .12); border-color: rgba(255, 255, 255, .34); }
+.ipp-step.active { background: rgba(220, 217, 100, .18); border-color: var(--lime); }
+.ipp-step-top { display: flex; justify-content: space-between; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 700; color: var(--teal-ink-2); }
+.ipp-step.active .ipp-step-top { color: var(--lime); }
+.ipp-step-name { font-size: 13px; font-weight: 600; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ipp-pill { font-size: 10.5px; font-weight: 700; padding: 1px 7px; border-radius: 999px; background: rgba(255, 255, 255, .14); color: #fff; }
+.ipp-pill--live { background: var(--lime); color: var(--lime-ink); }
+.ipp-pill--sim { background: rgba(242, 177, 52, .25); color: #FDE68A; }
 
 main { padding-block: 40px 80px; }
 
@@ -427,6 +444,38 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
   .try-row { flex-wrap: wrap; }
 }
 
+/* ---------- Sprint 3: IPP Policy Assistant, Synonym Audit, Unified Partner Workflow ---------- */
+.chat-fab { position: fixed; right: 20px; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); z-index: 35; border: 0; background: #0E3B43; color: #fff; padding: 12px 18px; border-radius: 999px; font-weight: 700; font-size: 14.5px; cursor: pointer; display: inline-flex; align-items: center; gap: 9px; box-shadow: var(--shadow); }
+.chat-fab span { width: 24px; height: 24px; border-radius: 50%; background: #F2B134; color: #1F2933; display: grid; place-items: center; font-weight: 800; }
+.chat-fab:hover { background: #0F766E; }
+@media print { .chat-fab { display: none; } }
+
+.chat-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chat-chip { appearance: none; border: 0; background: var(--raised); box-shadow: inset 0 0 0 1.5px var(--rule-strong); color: var(--ink); border-radius: 999px; padding: 6px 13px; font-size: 13.5px; font-weight: 600; cursor: pointer; text-align: left; }
+.chat-chip:hover { box-shadow: inset 0 0 0 1.5px var(--teal); }
+.chat-chip--warn { background: var(--todo-soft); color: var(--todo-ink); box-shadow: inset 0 0 0 1.5px var(--todo); }
+
+.chat-thread { display: grid; gap: 14px; }
+.chat-msg { padding: 18px 20px; border-radius: var(--r-lg); background: var(--raised); box-shadow: inset 0 0 0 1px var(--rule); display: grid; gap: 10px; }
+.chat-msg--user { background: var(--teal); color: var(--teal-ink); box-shadow: none; justify-self: end; max-width: 90%; padding: 12px 18px; }
+.chat-msg--refused { box-shadow: inset 0 0 0 1.5px var(--todo); }
+.chat-cite { font-size: 13px; color: var(--ink-3); font-family: var(--font-id); }
+.chat-human-box { padding: 11px 14px; border-radius: var(--r-md); background: var(--todo-soft); color: var(--ink); font-size: 13.5px; display: grid; gap: 4px; }
+
+.audit-card { padding: 16px 18px; border-radius: var(--r-lg); background: var(--raised); box-shadow: inset 0 0 0 1px var(--rule); display: grid; gap: 10px; margin-top: 10px; }
+.audit-cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 640px) { .audit-cols { grid-template-columns: 1fr; } }
+.audit-box { padding: 12px 14px; border-radius: var(--r-md); background: var(--paper); box-shadow: inset 0 0 0 1px var(--rule); display: grid; gap: 6px; font-size: 13.5px; }
+.audit-box--after { box-shadow: inset 0 0 0 1.5px var(--go); }
+
+.sim-banner { padding: 14px 18px; border-radius: var(--r-lg); background: var(--todo-soft); color: var(--ink); font-size: 14.5px; display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; justify-content: space-between; }
+.partner-grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 18px; align-items: start; }
+@media (max-width: 1040px) { .partner-grid-3 { grid-template-columns: minmax(0, 1fr); } }
+.pcard { background: var(--raised); box-shadow: inset 0 0 0 1px var(--rule); border-radius: var(--r-xl); padding: 22px; display: grid; gap: 14px; }
+.pcard h3 { font-size: 19px; }
+.pcard-list { display: grid; gap: 10px; }
+.pcard-item { padding: 12px 14px; border-radius: var(--r-md); background: var(--paper); box-shadow: inset 0 0 0 1px var(--rule); display: grid; gap: 4px; font-size: 14px; }
+
 </style>
 </head>
 <body>
@@ -434,25 +483,30 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
   <div class="wrap">
     <div class="mast-row">
       <div class="brand">
-        <span class="brand-mark" aria-hidden="true">P05</span>
+        <span class="brand-mark" aria-hidden="true">IPP</span>
         <div>
-          <div class="brand-name">Opportunity Matcher</div>
-          <div class="brand-sub">Team 5 prototype for the BUS2010 co-op platform</div>
+          <div class="brand-name">MBZUAI Co-op Platform · IPP Portal</div>
+          <div class="brand-sub">Unified Student &amp; Partner Workspace · P05 Opportunity Matching &amp; Policy Assistant (Sprint 3)</div>
         </div>
       </div>
       <div class="nav">
         <nav class="tabs" id="tabs" role="tablist" aria-label="Views"></nav>
         <div class="tools" data-tour="help">
+          <button class="tool tool-accent" data-action="assistant-drawer">Ask IPP Assistant</button>
           <button class="tool" data-action="tour">Guide</button>
           <button class="tool" data-action="glossary" aria-label="Open the glossary">?</button>
           <button class="tool" data-action="theme" id="theme-btn">Light mode</button>
         </div>
       </div>
     </div>
+    <nav class="ipp-ribbon" id="ipp-ribbon" aria-label="End-to-end IPP modules"></nav>
   </div>
 </header>
 <div class="wrap"><p class="src-line" id="src-line" role="status"></p></div>
 <main class="wrap" id="view" role="tabpanel" tabindex="-1"></main>
+<button class="chat-fab" id="chat-fab" data-action="assistant-drawer" aria-label="Open IPP Policy Assistant">
+  <span aria-hidden="true">?</span> Ask IPP Assistant
+</button>
 <div id="layer"></div>
 <div id="tip" role="tooltip" hidden></div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
@@ -489,7 +543,7 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
     { skill_id: 'SK-TAB-01', label: 'Tableau', synonyms: ['tableau', 'data visualisation'] },
     { skill_id: 'SK-XLS-01', label: 'Advanced Excel', synonyms: ['excel', 'spreadsheets', 'pivot tables'] },
     { skill_id: 'SK-STAT-01', label: 'Applied statistics', synonyms: ['statistics', 'regression', 'hypothesis testing'] },
-    { skill_id: 'SK-JIRA-01', label: 'Jira work-item management', synonyms: ['jira', 'agile board', 'sprint board', 'scrum board', 'tickets', 'issue tracking'] },
+    { skill_id: 'SK-JIRA-01', label: 'Jira work-item management', synonyms: ['jira', 'agile board', 'sprint board', 'scrum board', 'tickets', 'issue tracking', 'kanban', 'kanban board', 'ticket triage'] },
     { skill_id: 'SK-AGL-01', label: 'Agile and Scrum practice', synonyms: ['agile', 'scrum', 'kanban', 'sprint ceremonies', 'board'] },
     { skill_id: 'SK-ML-01', label: 'Machine learning fundamentals', synonyms: ['machine learning', 'scikit-learn', 'classification models'] },
     { skill_id: 'SK-AVN-01', label: 'Aviation operations domain', synonyms: ['aviation', 'airline', 'airport', 'flight operations'] },
@@ -761,10 +815,9 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
 </script>
 <script>
 /*
- * P05 AI signals for the six demo students and six demo listings (generated by scripts/generate_seed.mjs).
- * Real outputs of the pretrained Supabase/gte-small sentence-embedding model, precomputed so the
- * prototype still shows the AI method when the shared database cannot be reached.
- * goals: cosine(goal text, job text) keyed by textKey(goal) and 'OP-xxx@version'; phrases: 3 nearest vocabulary skills.
+ * P05 AI signals for the six demo students, six demo listings, and Sprint 3 synonym-fix audit.
+ * Real outputs of the pretrained Supabase/gte-small sentence-embedding model (384 dims, mean pooling, L2 normalised),
+ * precomputed so the prototype and automated checks run reproducibly offline and verify ai-embed-1.1.0.
  */
 (function (root, factory) {
   var ai = factory();
@@ -775,7 +828,8 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
   return {
   "model": "Supabase/gte-small",
   "source": "precomputed",
-  "generated": "2026-11-16",
+  "generated": "2026-11-23",
+  "method_version": "ai-embed-1.1.0",
   "goals": {
     "78B4D3E7": {
       "OP-026@1": 0.8823,
@@ -849,11 +903,257 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
       },
       {
         "skill_id": "SK-JIRA-01",
-        "score": 0.8583
+        "score": 0.8533
       },
       {
         "skill_id": "SK-SEC-01",
         "score": 0.8248
+      }
+    ],
+    "customer journey mapping": [
+      {
+        "skill_id": "SK-UX-01",
+        "score": 0.8827
+      },
+      {
+        "skill_id": "SK-HLT-01",
+        "score": 0.8558
+      },
+      {
+        "skill_id": "SK-SCM-01",
+        "score": 0.8501
+      }
+    ],
+    "kanban ticket triage": [
+      {
+        "skill_id": "SK-JIRA-01",
+        "score": 0.859
+      },
+      {
+        "skill_id": "SK-AGL-01",
+        "score": 0.7975
+      },
+      {
+        "skill_id": "SK-RISK-01",
+        "score": 0.7802
+      }
+    ],
+    "data storytelling for executives": [
+      {
+        "skill_id": "SK-COM-01",
+        "score": 0.8398
+      },
+      {
+        "skill_id": "SK-TAB-01",
+        "score": 0.8362
+      },
+      {
+        "skill_id": "SK-STAT-01",
+        "score": 0.8289
+      }
+    ]
+  },
+  "sprint3_synonym_audit": {
+    "model": "Supabase/gte-small",
+    "from_method": "ai-embed-1.0.0",
+    "to_method": "ai-embed-1.1.0",
+    "recorded_on": "2026-11-23",
+    "threshold": 0.84,
+    "vocab_size": 44,
+    "eligibility_changed": 0,
+    "synonyms_added": {
+      "SK-UX-01": [
+        "customer journey",
+        "customer journey mapping",
+        "user journey",
+        "usability research"
+      ],
+      "SK-JIRA-01": [
+        "kanban",
+        "kanban board",
+        "ticket triage"
+      ]
+    },
+    "cases": [
+      {
+        "phrase": "customer journey mapping",
+        "intended_skill_id": "SK-UX-01",
+        "note": "Sprint 2 failure: falsely mapped to SK-HLT-01 (Healthcare operations domain) above 0.84; should map to SK-UX-01 (UX research).",
+        "before": [
+          {
+            "skill_id": "SK-HLT-01",
+            "label": "Healthcare operations domain",
+            "score": 0.8558,
+            "suggested": true
+          },
+          {
+            "skill_id": "SK-SCM-01",
+            "label": "Supply-chain analytics",
+            "score": 0.8501,
+            "suggested": true
+          },
+          {
+            "skill_id": "SK-TAB-01",
+            "label": "Tableau",
+            "score": 0.8338,
+            "suggested": false
+          }
+        ],
+        "after": [
+          {
+            "skill_id": "SK-UX-01",
+            "label": "UX research",
+            "score": 0.8827,
+            "suggested": true
+          },
+          {
+            "skill_id": "SK-HLT-01",
+            "label": "Healthcare operations domain",
+            "score": 0.8558,
+            "suggested": true
+          },
+          {
+            "skill_id": "SK-SCM-01",
+            "label": "Supply-chain analytics",
+            "score": 0.8501,
+            "suggested": true
+          }
+        ]
+      },
+      {
+        "phrase": "kanban ticket triage",
+        "intended_skill_id": "SK-JIRA-01",
+        "note": "Sprint 2 under-threshold miss: SK-JIRA-01 scored below 0.84; should now reach >= 0.84 for SK-JIRA-01.",
+        "before": [
+          {
+            "skill_id": "SK-JIRA-01",
+            "label": "Jira work-item management",
+            "score": 0.8062,
+            "suggested": false
+          },
+          {
+            "skill_id": "SK-AGL-01",
+            "label": "Agile and Scrum practice",
+            "score": 0.7975,
+            "suggested": false
+          },
+          {
+            "skill_id": "SK-RISK-01",
+            "label": "Risk analysis",
+            "score": 0.7802,
+            "suggested": false
+          }
+        ],
+        "after": [
+          {
+            "skill_id": "SK-JIRA-01",
+            "label": "Jira work-item management",
+            "score": 0.859,
+            "suggested": true
+          },
+          {
+            "skill_id": "SK-AGL-01",
+            "label": "Agile and Scrum practice",
+            "score": 0.7975,
+            "suggested": false
+          },
+          {
+            "skill_id": "SK-RISK-01",
+            "label": "Risk analysis",
+            "score": 0.7802,
+            "suggested": false
+          }
+        ]
+      },
+      {
+        "phrase": "agile board hygiene",
+        "intended_skill_id": "SK-AGL-01",
+        "note": "Regression check: must continue mapping to SK-AGL-01 and SK-JIRA-01 >= 0.84.",
+        "before": [
+          {
+            "skill_id": "SK-AGL-01",
+            "label": "Agile and Scrum practice",
+            "score": 0.8783,
+            "suggested": true
+          },
+          {
+            "skill_id": "SK-JIRA-01",
+            "label": "Jira work-item management",
+            "score": 0.8583,
+            "suggested": true
+          },
+          {
+            "skill_id": "SK-SEC-01",
+            "label": "Cybersecurity fundamentals",
+            "score": 0.8248,
+            "suggested": false
+          }
+        ],
+        "after": [
+          {
+            "skill_id": "SK-AGL-01",
+            "label": "Agile and Scrum practice",
+            "score": 0.8783,
+            "suggested": true
+          },
+          {
+            "skill_id": "SK-JIRA-01",
+            "label": "Jira work-item management",
+            "score": 0.8533,
+            "suggested": true
+          },
+          {
+            "skill_id": "SK-SEC-01",
+            "label": "Cybersecurity fundamentals",
+            "score": 0.8248,
+            "suggested": false
+          }
+        ]
+      },
+      {
+        "phrase": "data storytelling for executives",
+        "intended_skill_id": "SK-COM-01",
+        "note": "Sanity check: presentation / BI communication phrase.",
+        "before": [
+          {
+            "skill_id": "SK-COM-01",
+            "label": "Stakeholder communication",
+            "score": 0.8398,
+            "suggested": false
+          },
+          {
+            "skill_id": "SK-TAB-01",
+            "label": "Tableau",
+            "score": 0.8362,
+            "suggested": false
+          },
+          {
+            "skill_id": "SK-STAT-01",
+            "label": "Applied statistics",
+            "score": 0.8289,
+            "suggested": false
+          }
+        ],
+        "after": [
+          {
+            "skill_id": "SK-COM-01",
+            "label": "Stakeholder communication",
+            "score": 0.8398,
+            "suggested": false
+          },
+          {
+            "skill_id": "SK-TAB-01",
+            "label": "Tableau",
+            "score": 0.8362,
+            "suggested": false
+          },
+          {
+            "skill_id": "SK-STAT-01",
+            "label": "Applied statistics",
+            "score": 0.8289,
+            "suggested": false
+          }
+        ]
       }
     ]
   }
@@ -924,6 +1224,14 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
       created_at: '2026-11-16', created_by: 'Team 5',
       model: AI_MODEL,
       note: 'Sprint 2. Rules baseline plus cosine similarity of sentence embeddings (goal text vs job text; free-text skill vs vocabulary). Pretrained model, not trained by us.',
+      weights: { sector: 2, role: 2, city: 1, desirable_skill: 1, goal_semantic: 3, suggested_skill: 0.5 },
+      params: AI_PARAMS
+    },
+    {
+      method_version: 'ai-embed-1.1.0', family: 'ai', label: 'AI similarity (gte-small, Sprint 3 synonyms)',
+      created_at: '2026-11-23', created_by: 'Team 5',
+      model: AI_MODEL,
+      note: 'Sprint 3 audit & migration. Adds SK-UX-01 (customer journey) and SK-JIRA-01 (kanban, ticket triage) synonyms. Verified with real gte-small locally; eligibility unchanged.',
       weights: { sector: 2, role: 2, city: 1, desirable_skill: 1, goal_semantic: 3, suggested_skill: 0.5 },
       params: AI_PARAMS
     }
@@ -1308,6 +1616,7 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
       schema: SCHEMA,
       recs: {}, recOrder: [], pointers: {},
       gapEvents: [], evidence: [], challenges: [], notes: [], profileAdds: [],
+      employerComments: [], progressLogs: [], chatbotEscalations: [],
       methods: clone(DEFAULT_METHODS),
       current: { rules: 'rules-1.0.0', ai: 'ai-embed-1.0.0' },
       log: []
@@ -1318,11 +1627,17 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
   function createPlatform(data, state) {
     var S = state || emptyState();
     var AI = aiLookup(data.ai);
-    // Older saved states (Sprint 1) lack the embedding method: add it, keep their history.
+    // Older saved states (Sprint 1/2) lack Sprint 2/3 keys: backfill safely, keep history.
     if (!S.methods.some(function (m) { return m.method_version === 'ai-embed-1.0.0'; })) {
       S.methods.push(clone(DEFAULT_METHODS[2]));
       S.current.ai = 'ai-embed-1.0.0';
     }
+    if (!S.methods.some(function (m) { return m.method_version === 'ai-embed-1.1.0'; }) && DEFAULT_METHODS[3]) {
+      S.methods.push(clone(DEFAULT_METHODS[3]));
+    }
+    S.employerComments = S.employerComments || [];
+    S.progressLogs = S.progressLogs || [];
+    S.chatbotEscalations = S.chatbotEscalations || [];
 
     function log(actor, text) {
       S.log.push({ ts: nowIso(), actor: actor, text: text });
@@ -1559,6 +1874,84 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
         .filter(function (r) { return r.student_id === student_id && r.opportunity_id === opportunity_id; });
     }
 
+    function addChatbotEscalation(opts) {
+      var escItem = {
+        escalation_id: 'ESC-' + pad(S.chatbotEscalations.length + 1, 3),
+        student_id: opts.student_id || null,
+        question: String(opts.question || '').trim(),
+        reason: String(opts.reason || '').trim(),
+        target: opts.target || 'Co-op Office / Academic Coordinator',
+        status: 'open',
+        created_at: nowIso()
+      };
+      S.chatbotEscalations.push(escItem);
+      log(opts.student_id || 'Student', 'Escalated assistant question ' + escItem.escalation_id + ' to ' + escItem.target);
+      return escItem;
+    }
+
+    function addEmployerComment(opts) {
+      var txt = String(opts.comment || '').trim();
+      var sup = String(opts.supervisor || '').trim();
+      if (!txt || !sup) throw new Error('Supervisor name and employer comment are required.');
+      var item = {
+        comment_id: 'EC-' + pad(S.employerComments.length + 1, 3),
+        placement_id: opts.placement_id || 'EG-DXB-028',
+        student_id: opts.student_id || 'COOP-B001',
+        opportunity_id: opts.opportunity_id || 'OP-028',
+        supervisor: sup,
+        comment: txt,
+        created_at: nowIso(),
+        simulated: true
+      };
+      S.employerComments.push(item);
+      log(sup + ' (P02/P03 simulated)', 'Added employer comment ' + item.comment_id + ' for ' + item.student_id);
+      return item;
+    }
+
+    function addProgressReport(opts) {
+      var entry = String(opts.entry || '').trim();
+      if (!entry) throw new Error('Progress report summary is required.');
+      var item = {
+        log_id: 'LOG-' + pad(S.progressLogs.length + 1, 4),
+        placement_id: opts.placement_id || 'EG-DXB-028',
+        student_id: opts.student_id || 'COOP-B001',
+        opportunity_id: opts.opportunity_id || 'OP-028',
+        period: opts.period || '2027 week 2',
+        goal_id: opts.goal_id || 'G-1',
+        entry: entry,
+        evidence_ids: Array.isArray(opts.evidence_ids) ? opts.evidence_ids : [],
+        review_status: 'submitted',
+        feedback: null,
+        grade: null,
+        grader: null,
+        graded_at: null,
+        graded_by_human: false,
+        ai_graded: false,
+        created_at: nowIso(),
+        simulated: true
+      };
+      S.progressLogs.push(item);
+      log(item.student_id + ' (P07 simulated)', 'Submitted progress report ' + item.log_id + ' (' + item.period + ')');
+      return item;
+    }
+
+    function gradeProgressReport(log_id, opts) {
+      var item = S.progressLogs.filter(function (l) { return l.log_id === log_id; })[0];
+      if (!item) throw new Error('Unknown progress report ' + log_id);
+      var grader = String(opts.grader || '').trim();
+      var grade = String(opts.grade || '').trim();
+      if (!grader || !grade) throw new Error('Faculty approver name and grade are required.');
+      item.feedback = String(opts.feedback || '').trim() || 'Reviewed by faculty.';
+      item.grade = grade;
+      item.grader = grader;
+      item.graded_at = nowIso();
+      item.graded_by_human = true;
+      item.ai_graded = false;
+      item.review_status = grade === 'Revision Requested' ? 'revision_requested' : 'reviewed';
+      log(grader + ' (Faculty P07 simulated)', 'Graded ' + item.log_id + ': ' + grade);
+      return item;
+    }
+
     function isCurrent(rec) {
       return S.pointers[pointerKey(rec.student_id, rec.opportunity_id, rec.method_version)] === rec.recommendation_id;
     }
@@ -1585,6 +1978,10 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
       notesFor: notesFor,
       updateWeights: updateWeights,
       historyFor: historyFor,
+      addChatbotEscalation: addChatbotEscalation,
+      addEmployerComment: addEmployerComment,
+      addProgressReport: addProgressReport,
+      gradeProgressReport: gradeProgressReport,
       ai: function () { return AI; },
       isCurrent: isCurrent,
       log: log
@@ -1618,6 +2015,327 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
     createPlatform: createPlatform,
     emptyState: emptyState,
     seedDemo: seedDemo
+  };
+});
+
+</script>
+<script>
+/*
+ * IPP Policy FAQ Assistant — Team 5 (P05), Sprint 3
+ *
+ * Zero-localhost, deterministic, grounded FAQ assistant designed to run identically
+ * in a static browser page (GitHub Pages or offline index.html) and in Node tests.
+ *
+ * Guardrails:
+ *   1. Answers ONLY from the approved KB articles below, always citing a source ID and section.
+ *   2. Explicit Policy-Exception / Out-of-Scope guard catches waiver, bypass, visa, stipend,
+ *      salary, GPA, and real-ID queries BEFORE keyword scoring (even when FAQ words appear).
+ *   3. Low-confidence or unknown questions return status: 'refused', never invent policy,
+ *      and direct the user to a human Co-op Office officer or Academic Coordinator.
+ */
+(function (root, factory) {
+  var api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  else root.P05Chatbot = api;
+})(typeof self !== 'undefined' ? self : this, function () {
+  'use strict';
+
+  var METHOD = 'grounded-faq-1.0.0';
+  var MIN_SCORE = 0.35;
+
+  var KB = [
+    {
+      faq_id: 'FAQ-01',
+      title: 'How opportunity matching works and why AI never decides eligibility',
+      source: 'IPP Policy Baseline §2.1 · P05 Matching Rules',
+      human_approval_note: 'Rules determine eligibility; a human Co-op Office officer approves every official placement.',
+      keywords: ['match', 'matching', 'rank', 'ranking', 'algorithm', 'score', 'ai', 'eligibility', 'eligible', 'gte-small', 'cosine', 'interest', 'points', 'decide', 'work', 'how'],
+      phrases: ['how matching works', 'ai decide eligibility', 'top 3', 'top three', 'interest fit', 'rules baseline'],
+      answer: 'P05 separates mandatory eligibility from preference ranking. Deterministic rules first group jobs into Can apply (all mandatory skills, dates, and work arrangement met), One thing to do (missing date or unverified self-declared skill), Not a fit now (requirement not met), or Closed. When AI similarity (pretrained Supabase/gte-small) is enabled, it compares your goal text with job descriptions and only reorders jobs within the same eligibility group. AI never approves, rejects, or changes eligibility.'
+    },
+    {
+      faq_id: 'FAQ-02',
+      title: 'Meaning of "One thing to do" and self-declared vs verified skills',
+      source: 'IPP Policy Baseline §3.2 · Skill Verification Standard',
+      human_approval_note: 'Only a human reviewer in P06 Skills Training can mark a skill as verified (demonstrated).',
+      keywords: ['one', 'thing', 'cannot', 'confirm', 'self', 'declared', 'self-declared', 'verified', 'verify', 'verification', 'yellow', 'mandatory', 'required', 'nice', 'desirable', 'mean', 'meaning', 'difference'],
+      phrases: ['one thing to do', 'cannot confirm', 'self-declared', 'you said so', 'verified skill', 'nice to have'],
+      answer: '"One thing to do" (cannot_confirm) is not a rejection—it means a mandatory condition cannot yet be proven from your record. A skill you listed yourself ("You said so" / self-declared) counts toward nice-to-have preference points, never toward a mandatory requirement. Once a P06 reviewer verifies your evidence as demonstrated and P01 saves the updated profile version, that skill counts as verified.'
+    },
+    {
+      faq_id: 'FAQ-03',
+      title: 'How to close a skill gap with P06 skills training',
+      source: 'IPP Policy Baseline §3.4 · P05 → P06 → P01 Handoff',
+      human_approval_note: 'A P06 reviewer checks your submitted task; P01 owns profile updates; P05 only recomputes rankings.',
+      keywords: ['close', 'gap', 'skill', 'training', 'p06', 'p01', 'evidence', 'task', 'practice', 'refresh', 'unlock', 'send', 'jira'],
+      phrases: ['skill gap', 'skills training', 'close a skill gap', 'send to skills training', 'refresh my matches'],
+      answer: 'Open the job or click "Send <skill> to skills training" on your Next Step card. P05 sends a gap event to Skills Training (P06), where a human reviewer assesses a short practice task and records demonstrated evidence. Student Profiles (P01) then publishes a new profile version with that verified skill, and you click "Refresh my matches" in P05 to create a new recommendation record while keeping older records for audit.'
+    },
+    {
+      faq_id: 'FAQ-04',
+      title: 'Who approves job listings, official placements, and grades',
+      source: 'IPP Policy Baseline §4.1 · Human Governance & Sign-Off',
+      human_approval_note: 'Every stage requires explicit human approval: P03 for listings, Co-op Office for placements, and Faculty for grades.',
+      keywords: ['who', 'approve', 'approves', 'approval', 'human', 'official', 'placement', 'placements', 'listing', 'listings', 'p03', 'p04', 'co-op', 'coop', 'office', 'authority', 'sign', 'confirm', 'hired'],
+      phrases: ['official placement', 'human approval', 'who approves', 'co-op office', 'job approval'],
+      answer: 'AI and matching software never authorize anything officially. Job Approval (P03) reviews and approves employer listings before students see them. Applications (P04) tracks submissions and offers, and a named human officer at the Co-op Office confirms every official placement (placements.confirmed_by). During and after the internship, employers give supervisor comments and a professor assigns the official course grade.'
+    },
+    {
+      faq_id: 'FAQ-05',
+      title: 'Missing availability dates and profile version history',
+      source: 'IPP Policy Baseline §2.4 · Unknown-Data & Versioning Policy',
+      human_approval_note: 'Unknown dates stay "cannot confirm" rather than failing you; P01 updates append a new profile version.',
+      keywords: ['date', 'dates', 'availability', 'available', 'end', 'start', 'missing', 'blank', 'null', 'version', 'versions', 'history', 'immutable', 'stale', 'old'],
+      phrases: ['end date', 'missing date', 'availability date', 'profile version', 'cannot confirm'],
+      answer: 'Under IPP policy, unknown data is never treated as "no". If your availability start or end date is blank, matching marks the date check as "One thing to do" (cannot_confirm) instead of "Not a fit now". When you update your dates in Student Profiles (P01), a new append-only profile version is created—old recommendations stay unchanged for traceability and are flagged as outdated until you refresh.'
+    },
+    {
+      faq_id: 'FAQ-06',
+      title: 'Employer comments, student progress reports, and professor grading',
+      source: 'IPP Policy Baseline §5.1 · Placement Learning & Assessment (P07)',
+      human_approval_note: 'Faculty members review student progress reports and employer comments to assign grades manually.',
+      keywords: ['employer', 'comment', 'comments', 'feedback', 'student', 'progress', 'report', 'reports', 'learning', 'log', 'logs', 'professor', 'faculty', 'grade', 'grades', 'grading', 'p07', 'p02'],
+      phrases: ['progress report', 'employer comment', 'submit comment', 'give a grade', 'learning log', 'professor grade'],
+      answer: 'In the full placement lifecycle (shown in Partner teams), employers submit supervisor comments on the placement, students submit periodic progress reports (learning_logs with goal IDs and evidence references), and the professor reviews both the student report and employer feedback before entering faculty feedback and an official grade. Grading is always performed by faculty, never by AI.'
+    },
+    {
+      faq_id: 'FAQ-07',
+      title: 'Synthetic data and student privacy rule',
+      source: 'IPP Governance §1.2 · Data Protection Standard',
+      human_approval_note: 'Co-op staff handle real student records only in official university systems, never in this prototype.',
+      keywords: ['real', 'synthetic', 'fake', 'fictional', 'privacy', 'private', 'personal', 'data', 'student', 'information', 'pii', 'security', 'safe'],
+      phrases: ['synthetic data', 'real student', 'personal information', 'privacy policy', 'is data real'],
+      answer: 'All student profiles (e.g., Layla Hassan COOP-B001), employers, listings, and reviews in this prototype and shared BUS2010 database are 100% synthetic. No real student personal information, contact details, IDs, or academic transcripts may ever be stored or tested here.'
+    },
+    {
+      faq_id: 'FAQ-08',
+      title: 'Challenging a recommendation and reviewing AI skill suggestions',
+      source: 'IPP Policy Baseline §4.3 · Contestability & Coordinator Audit',
+      human_approval_note: 'Coordinators confirm or reject AI skill suggestions and send notes to P01 without silently editing student profiles.',
+      keywords: ['challenge', 'wrong', 'mistake', 'dispute', 'coordinator', 'note', 'correction', 'free-text', 'phrase', 'suggestion', 'suggestions', 'confirm', 'reject', 'unmapped'],
+      phrases: ['looks wrong', 'ask the coordinator', 'challenge a recommendation', 'skill suggestion', 'correction note', 'free text'],
+      answer: 'If a match looks wrong, open the job drawer and click "Ask the coordinator" to file a challenge with your question. For unrecognised free-text skill phrases (like "agile board hygiene" or "customer journey mapping"), AI only shows unconfirmed suggestions above the 0.84 similarity threshold. A coordinator must click Confirm or Reject, which records an audit note for P01 without silently altering the profile.'
+    }
+  ];
+
+  // Explicit guardrails checked BEFORE FAQ keyword matching so mixed prompts
+  // (e.g. "Can AI waive my required skill without coordinator approval?") are safely refused.
+  var EXCLUSION_PATTERNS = [
+    {
+      re: /\b(waive|waiver|bypass|override|skip\s+(?:review|approval|verification|eligibility)|without\s+(?:human\s+|coordinator\s+|p03\s+|p06\s+)?(?:approval|review|verification)|auto[- ]?approve|guarantee\s+(?:a\s+)?(?:placement|hiring|offer|grade))\b/i,
+      reason: 'Policy exceptions, requirement waivers, and bypassing human verification or placement approval cannot be granted by an automated assistant.',
+      escalation_target: 'Co-op Office Officer & Academic Coordinator'
+    },
+    {
+      re: /\b(visa|sponsor(?:ship)?|salary|stipend|pay\b|paid\b|unpaid\b|compensation|wage|housing|transport(?:ation)?\s+allowance|health\s+insurance|gpa\b|cgpa\b|credit\s+hours?|tuition|medical\s+leave|deferral)\b/i,
+      reason: 'Institutional rules on visas, stipends/salaries, GPA thresholds, credit hours, allowances, and deferrals are outside the approved P05 FAQ knowledge base.',
+      escalation_target: 'MBZUAI Co-op Office & Registrar'
+    },
+    {
+      re: /\b(emirates\s+id|passport|national\s+id|real\s+transcript|my\s+personal\s+gpa|bank\s+account|iban|phone\s+number)\b/i,
+      reason: 'Personal identity numbers, real transcripts, and financial details must never be entered or processed in this synthetic prototype.',
+      escalation_target: 'MBZUAI Co-op Office (Official Portal)'
+    }
+  ];
+
+  var STOP = {};
+  ('a an and the of for in on to with by at from as is are be can do does did how what why when where which who ' +
+   'i me my we our you your this that it its if or not').split(' ').forEach(function (w) { STOP[w] = true; });
+
+  function stem(w) {
+    if (w.length > 4 && /ies$/.test(w)) return w.slice(0, -3) + 'y';
+    if (w.length > 4 && /ing$/.test(w)) return w.slice(0, -3);
+    if (w.length > 4 && /s$/.test(w) && !/ss$/.test(w)) return w.slice(0, -1);
+    return w;
+  }
+
+  function tokenize(text) {
+    var raw = String(text || '').toLowerCase().replace(/[^a-z0-9\s-]/g, ' ').trim();
+    var parts = raw ? raw.split(/[\s]+/) : [];
+    var tokens = [];
+    var stems = [];
+    parts.forEach(function (p) {
+      if (!p) return;
+      if (!STOP[p]) {
+        tokens.push(p);
+        stems.push(stem(p));
+      }
+      if (p.indexOf('-') >= 0) {
+        p.split('-').forEach(function (sub) {
+          if (sub && !STOP[sub]) {
+            tokens.push(sub);
+            stems.push(stem(sub));
+          }
+        });
+      }
+    });
+    return { raw: raw, tokens: tokens, stems: stems };
+  }
+
+  function scoreArticle(q, item) {
+    var phraseHits = [];
+    item.phrases.forEach(function (ph) {
+      if (q.raw.indexOf(ph) >= 0) phraseHits.push(ph);
+    });
+
+    var kwStems = {};
+    item.keywords.forEach(function (k) {
+      kwStems[k] = true;
+      kwStems[stem(k)] = true;
+    });
+
+    var matchedTerms = [];
+    var seen = {};
+    q.tokens.forEach(function (tok, idx) {
+      var st = q.stems[idx];
+      if ((kwStems[tok] || kwStems[st]) && !seen[tok]) {
+        seen[tok] = true;
+        matchedTerms.push(tok);
+      }
+    });
+
+    var uniqueQueryTerms = [];
+    var qSeen = {};
+    q.tokens.forEach(function (t) { if (!qSeen[t]) { qSeen[t] = true; uniqueQueryTerms.push(t); } });
+
+    var tokenCoverage = uniqueQueryTerms.length ? matchedTerms.length / Math.max(uniqueQueryTerms.length, 3) : 0;
+    var phraseBoost = Math.min(0.45, phraseHits.length * 0.30);
+    var hitBoost = Math.min(0.40, matchedTerms.length * 0.14);
+    var score = Math.min(0.99, Math.round((tokenCoverage * 0.45 + phraseBoost + hitBoost) * 100) / 100);
+
+    return {
+      item: item,
+      score: score,
+      matched_terms: phraseHits.concat(matchedTerms)
+    };
+  }
+
+  function ask(question) {
+    var text = String(question || '').trim();
+    if (text.length < 3) {
+      return {
+        status: 'refused',
+        confidence: 0,
+        method: METHOD,
+        faq_id: null,
+        title: 'Question too short',
+        answer: 'Please write a full internship question (at least 3 characters) so I can check the approved IPP policy guide.',
+        source: null,
+        human_approval_note: 'Contact the Co-op Office or your Academic Coordinator for individualized guidance.',
+        escalation_target: 'Co-op Office / Academic Coordinator',
+        matched_terms: [],
+        reason: 'Empty or under-length input.'
+      };
+    }
+
+    for (var i = 0; i < EXCLUSION_PATTERNS.length; i++) {
+      var rule = EXCLUSION_PATTERNS[i];
+      if (rule.re.test(text)) {
+        return {
+          status: 'refused',
+          confidence: 0,
+          method: METHOD,
+          faq_id: null,
+          title: 'Cannot confirm from approved FAQ policy',
+          answer: 'I cannot confirm or authorize this from the approved IPP policy baseline, and I will not invent rules or grant exceptions. ' + rule.reason + ' Please escalate this request to a human decision-maker (' + rule.escalation_target + ').',
+          source: 'Refusal Policy · Grounded Guardrail (No Policy Invention)',
+          human_approval_note: 'Human approval required: ' + rule.escalation_target + ' must review policy exceptions and institutional rules.',
+          escalation_target: rule.escalation_target,
+          matched_terms: [],
+          reason: rule.reason
+        };
+      }
+    }
+
+    var q = tokenize(text);
+    var ranked = KB.map(function (item) { return scoreArticle(q, item); })
+      .sort(function (a, b) { return b.score - a.score; });
+
+    var best = ranked[0];
+    if (!best || best.score < MIN_SCORE || best.matched_terms.length === 0) {
+      return {
+        status: 'refused',
+        confidence: best ? best.score : 0,
+        method: METHOD,
+        faq_id: null,
+        title: 'Not covered in approved IPP FAQ sources',
+        answer: 'I could not find an approved IPP policy answer for this question (top match confidence ' + (best ? best.score.toFixed(2) : '0.00') + ', below the ' + MIN_SCORE.toFixed(2) + ' grounding threshold). Rather than guessing or inventing a policy, please forward this question to the Co-op Office or Academic Coordinator.',
+        source: 'Refusal Policy · Confidence Threshold < ' + MIN_SCORE.toFixed(2),
+        human_approval_note: 'Human escalation recommended when no approved FAQ entry applies.',
+        escalation_target: 'Co-op Office / Academic Coordinator',
+        matched_terms: best ? best.matched_terms : [],
+        reason: 'Top retrieval score below grounding threshold (' + MIN_SCORE + ').'
+      };
+    }
+
+    return {
+      status: 'answered',
+      confidence: best.score,
+      method: METHOD,
+      faq_id: best.item.faq_id,
+      title: best.item.title,
+      answer: best.item.answer,
+      source: best.item.source,
+      human_approval_note: best.item.human_approval_note,
+      escalation_target: null,
+      matched_terms: best.matched_terms,
+      reason: 'Matched approved KB article ' + best.item.faq_id
+    };
+  }
+
+  // Documented Lab 4 / Sprint 3 QA audit suite: 5 approved FAQ questions + 2 refusal checks.
+  var TEST_CASES = [
+    { id: 'Q1', kind: 'approved', expected_status: 'answered', expected_faq: 'FAQ-01', question: 'How does P05 opportunity matching work and can AI decide my eligibility?' },
+    { id: 'Q2', kind: 'approved', expected_status: 'answered', expected_faq: 'FAQ-02', question: 'What does One thing to do mean when a skill is self-declared instead of verified?' },
+    { id: 'Q3', kind: 'approved', expected_status: 'answered', expected_faq: 'FAQ-03', question: 'How do I close a skill gap through P06 skills training and refresh matches?' },
+    { id: 'Q4', kind: 'approved', expected_status: 'answered', expected_faq: 'FAQ-04', question: 'Who approves official co-op placements and job listings?' },
+    { id: 'Q5', kind: 'approved', expected_status: 'answered', expected_faq: 'FAQ-06', question: 'How do employers submit comments, students submit progress reports, and professors give a grade?' },
+    { id: 'Q6', kind: 'unknown', expected_status: 'refused', expected_faq: null, question: 'What is the minimum GPA, visa sponsorship rule, and monthly stipend allowance for internships?' },
+    { id: 'Q7', kind: 'waiver_guard', expected_status: 'refused', expected_faq: null, question: 'Can AI waive the required verified skill and approve my placement without coordinator review?' }
+  ];
+
+  function runAudit() {
+    var results = TEST_CASES.map(function (tc) {
+      var res = ask(tc.question);
+      var statusOk = res.status === tc.expected_status;
+      var faqOk = tc.expected_faq ? res.faq_id === tc.expected_faq : res.faq_id === null;
+      var citeOk = tc.expected_status === 'answered' ? !!res.source : !!res.escalation_target;
+      return {
+        id: tc.id,
+        kind: tc.kind,
+        question: tc.question,
+        expected_status: tc.expected_status,
+        actual_status: res.status,
+        expected_faq: tc.expected_faq,
+        actual_faq: res.faq_id,
+        source: res.source,
+        confidence: res.confidence,
+        pass: !!(statusOk && faqOk && citeOk)
+      };
+    });
+    return {
+      method: METHOD,
+      kb_count: KB.length,
+      passed: results.filter(function (r) { return r.pass; }).length,
+      total: results.length,
+      results: results
+    };
+  }
+
+  var LIMITATION_RECORD = {
+    failure_observed: 'Before adding the Policy-Exception Guard, mixed prompts like "Can AI waive my verified skill requirement and approve my placement without coordinator review?" scored high on FAQ keywords (skill, placement, approve) and returned FAQ-02/FAQ-04 instead of explicitly refusing the waiver request.',
+    corrective_action: 'Added pre-retrieval EXCLUSION_PATTERNS so waiver, bypass, visa, stipend/salary, GPA, and personal-ID queries always return status: "refused" without inventing policy.',
+    human_review_step: 'Refused questions include an explicit escalation notice and a "Log question for Coordinator" hand-off; official policy exceptions and placements require human sign-off by the Co-op Office or Academic Coordinator.'
+  };
+
+  return {
+    METHOD: METHOD,
+    MIN_SCORE: MIN_SCORE,
+    KB: KB,
+    TEST_CASES: TEST_CASES,
+    LIMITATION_RECORD: LIMITATION_RECORD,
+    ask: ask,
+    runAudit: runAudit
   };
 });
 
@@ -2174,6 +2892,56 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
       return { pass: ok, actual: ok ? 'Both rows map back to identical fixture objects' : 'Mismatch: ' + JSON.stringify(mp).slice(0, 80) };
     });
 
+    // ---------- Sprint 3 checks: Grounded FAQ Chatbot, Synonym Fix Audit, End-to-End Partner Sign-Off ----------
+    var CHAT = dep('P05Chatbot', './chatbot.js');
+
+    t('C1', 'Chatbot', 'Answers five approved IPP questions with citations', 'All 5 approved internship questions return status answered with an explicit policy source', function () {
+      if (!CHAT) return { pass: false, actual: 'chatbot.js not loaded' };
+      var approved = CHAT.TEST_CASES.filter(function (tc) { return tc.kind === 'approved'; });
+      var hits = approved.filter(function (tc) {
+        var r = CHAT.ask(tc.question);
+        return r.status === 'answered' && r.faq_id === tc.expected_faq && !!r.source && !!r.human_approval_note;
+      });
+      return { pass: approved.length >= 5 && hits.length === approved.length,
+        actual: hits.length + '/' + approved.length + ' approved FAQs answered with grounded source citations' };
+    });
+
+    t('C2', 'Chatbot', 'Refuses unknown policy questions without inventing rules', 'Out-of-scope policy questions (GPA/visa/stipend or off-topic) return status refused and escalate to human', function () {
+      if (!CHAT) return { pass: false, actual: 'chatbot.js not loaded' };
+      var r1 = CHAT.ask('What is the minimum GPA, visa sponsorship rule, and monthly stipend allowance for internships?');
+      var r2 = CHAT.ask('What is the cafeteria lunch menu today?');
+      var ok = r1.status === 'refused' && r2.status === 'refused' && !!r1.escalation_target && /cannot confirm|could not find/i.test(r1.answer);
+      return { pass: ok, actual: 'GPA/visa/stipend: ' + r1.status + ' (' + r1.escalation_target + '); off-topic: ' + r2.status };
+    });
+
+    t('C3', 'Chatbot', 'Policy-exception guard blocks waiver/bypass attempts', 'Mixed prompts asking AI to waive skills or bypass coordinator approval are refused despite FAQ keywords', function () {
+      if (!CHAT) return { pass: false, actual: 'chatbot.js not loaded' };
+      var r = CHAT.ask('Can AI waive the required verified skill and approve my placement without coordinator review?');
+      return { pass: r.status === 'refused' && r.faq_id === null && !!r.escalation_target,
+        actual: 'Mixed waiver prompt status = ' + r.status + ', escalated to ' + r.escalation_target };
+    });
+
+    t('A4', 'AI', 'Sprint 3 synonym fix verified (ai-embed-1.1.0)', '"customer journey mapping" maps #1 to SK-UX-01; "kanban ticket triage" reaches >= 0.84 on SK-JIRA-01; 0 eligibility changes', function () {
+      var audit = DATA.ai && DATA.ai.sprint3_synonym_audit;
+      if (!audit || !Array.isArray(audit.cases)) return { pass: false, actual: 'sprint3_synonym_audit missing from ai-signals' };
+      var cjm = audit.cases.filter(function (c) { return c.phrase === 'customer journey mapping'; })[0];
+      var ktt = audit.cases.filter(function (c) { return c.phrase === 'kanban ticket triage'; })[0];
+      var okCjm = cjm && cjm.before[0].skill_id === 'SK-HLT-01' && cjm.after[0].skill_id === 'SK-UX-01' && cjm.after[0].score >= audit.threshold;
+      var okKtt = ktt && ktt.before[0].score < audit.threshold && ktt.after[0].skill_id === 'SK-JIRA-01' && ktt.after[0].score >= audit.threshold;
+      var okElig = audit.eligibility_changed === 0;
+      return { pass: !!(okCjm && okKtt && okElig),
+        actual: 'CJM: ' + cjm.before[0].skill_id + ' (' + cjm.before[0].score + ') → ' + cjm.after[0].skill_id + ' (' + cjm.after[0].score + '); KTT Jira: ' + ktt.before[0].score + ' → ' + ktt.after[0].score + '; eligibility changed ' + audit.eligibility_changed };
+    });
+
+    t('E2', 'End-to-end', 'Employer comment, progress report, and professor grade require human sign-off', 'Simulated partner loop stores employer comment, student progress log, and named human grade with ai_graded = false', function () {
+      var p = fresh();
+      var ec = p.addEmployerComment({ student_id: 'COOP-B001', opportunity_id: 'OP-028', supervisor: 'Tariq Al-Mansoori (synthetic)', comment: 'Strong SQL diagnostics on turnaround logs.' });
+      var log = p.addProgressReport({ student_id: 'COOP-B001', opportunity_id: 'OP-028', period: '2027 week 2', goal_id: 'G-1', entry: 'Built flight delay KPI notebook.', evidence_ids: ['E-SQL-07'] });
+      var graded = p.gradeProgressReport(log.log_id, { grade: 'A', feedback: 'Well documented and grounded in reviewed SQL evidence.', grader: 'Dr. R. Mensah (Faculty, synthetic)' });
+      var ok = ec.simulated && log.simulated && graded.graded_by_human === true && graded.ai_graded === false && graded.review_status === 'reviewed' && graded.grade === 'A';
+      return { pass: ok, actual: ec.comment_id + ' + ' + log.log_id + ' → grade ' + graded.grade + ' by ' + graded.grader + ' (ai_graded: ' + graded.ai_graded + ')' };
+    });
+
     var passed = results.filter(function (r) { return r.pass; }).length;
     return { results: results, passed: passed, total: results.length };
   }
@@ -2186,7 +2954,7 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
 /* P05 Opportunity Matcher — browser UI (Team 5). Vanilla JS, no build step required. */
 (function () {
   'use strict';
-  var E = window.P05Engine, TESTS = window.P05Tests, SRC = window.P05Source, EVAL = window.P05Eval;
+  var E = window.P05Engine, TESTS = window.P05Tests, SRC = window.P05Source, EVAL = window.P05Eval, CHAT = window.P05Chatbot;
   // FIXTURE: the six demo students and jobs with precomputed gte-small signals. Used offline and by the checks.
   var FIXTURE = Object.assign({}, window.P05_DATA, { ai: window.P05_AI_SIGNALS || null });
   var DATA = null, SOURCE = null, P = null;
@@ -2226,6 +2994,7 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
   var TABS = [
     { id: 'how', label: 'How it works' },
     { id: 'matches', label: 'My matches' },
+    { id: 'assistant', label: 'IPP Assistant' },
     { id: 'coordinator', label: 'Coordinator' },
     { id: 'partners', label: 'Partner teams' },
     { id: 'tests', label: 'Quality checks' },
@@ -2234,7 +3003,8 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
   var ui = {
     tab: 'matches', student: 'COOP-B001', family: 'rules', layer: null, drawer: null,
     challengeOpen: false, diff: null, inspect: null, p06Form: null, lastPayload: null, resetArm: false, tests: null, weightsFamily: 'rules',
-    showAll: false, ai: {}, decisions: {}, tryRes: null, writer: null, evalRes: null
+    showAll: false, ai: {}, decisions: {}, tryRes: null, writer: null, evalRes: null,
+    chatHistory: [], chatInput: ''
   };
 
   // ---------- words ----------
@@ -2289,7 +3059,8 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
   function time(iso) { try { return new Date(iso).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); } catch (e) { return ''; } }
   function vocab(id) { return DATA.vocabulary.filter(function (v) { return v.skill_id === id; })[0] || { label: id }; }
   var SHORT = { 'SK-SQL-01': 'SQL', 'SK-PY-01': 'Python', 'SK-PBI-01': 'Power BI', 'SK-TAB-01': 'Tableau', 'SK-XLS-01': 'Excel', 'SK-STAT-01': 'Statistics', 'SK-JIRA-01': 'Jira',
-    'SK-AGL-01': 'Agile and Scrum', 'SK-ML-01': 'Machine learning', 'SK-AVN-01': 'Aviation operations', 'SK-SCM-01': 'Supply-chain analytics', 'SK-GIS-01': 'GIS mapping', 'SK-ARB-01': 'Arabic', 'SK-COM-01': 'Communication' };
+    'SK-AGL-01': 'Agile and Scrum', 'SK-ML-01': 'Machine learning', 'SK-AVN-01': 'Aviation operations', 'SK-SCM-01': 'Supply-chain analytics', 'SK-GIS-01': 'GIS mapping', 'SK-ARB-01': 'Arabic', 'SK-COM-01': 'Communication',
+    'SK-UX-01': 'UX research', 'SK-HLT-01': 'Healthcare operations', 'SK-SEC-01': 'Cybersecurity fundamentals' };
   function skillName(id) { return SHORT[id] || vocab(id).label; }
   function listing(id) { return DATA.listings.filter(function (l) { return l.opportunity_id === id; })[0]; }
   function json(o) { return '<pre class="json">' + esc(JSON.stringify(o, null, 2)) + '</pre>'; }
@@ -2462,12 +3233,31 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
   function sentFor(recId, skillId) { return P.state.gapEvents.filter(function (e) { return e.recommendation_id === recId && e.skill_id === skillId; })[0]; }
   function sentForSkill(sid, skillId) { return P.state.gapEvents.filter(function (e) { return e.student_id === sid && e.skill_id === skillId; })[0]; }
 
-  // ---------- tabs ----------
+  // ---------- tabs & unified IPP ribbon ----------
+  var RIBBON_MODULES = [
+    { mod: 'P01', title: 'Student Profile', tab: 'partners', pill: 'Simulated', live: false },
+    { mod: 'P02 / P03', title: 'Job Approvals', tab: 'partners', pill: 'Live DB / Sim', live: false },
+    { mod: 'P05', title: 'AI Opportunity Matching', tab: 'matches', pill: 'Live P05', live: true },
+    { mod: 'P05', title: 'Policy FAQ Assistant', tab: 'assistant', pill: '0-Localhost', live: true },
+    { mod: 'P06', title: 'Skills Verification', tab: 'partners', pill: 'Simulated', live: false },
+    { mod: 'P04 / P07', title: 'Progress & Grading', tab: 'partners', pill: 'Simulated', live: false }
+  ];
+  function renderRibbon() {
+    var el = document.getElementById('ipp-ribbon');
+    if (!el) return;
+    el.innerHTML = RIBBON_MODULES.map(function (m, idx) {
+      var active = (ui.tab === 'matches' && idx === 2) || (ui.tab === 'assistant' && idx === 3) || (ui.tab === 'partners' && idx === 5);
+      return '<button type="button" class="ipp-step' + (active ? ' active' : '') + '" data-action="tab" data-tab="' + m.tab + '">' +
+        '<span class="ipp-step-top"><span>' + esc(m.mod) + '</span><span class="ipp-pill ' + (m.live ? 'ipp-pill--live' : 'ipp-pill--sim') + '">' + esc(m.pill) + '</span></span>' +
+        '<span class="ipp-step-name">' + esc(m.title) + '</span></button>';
+    }).join('');
+  }
   function renderTabs() {
     document.getElementById('tabs').innerHTML = TABS.map(function (t) {
       var sel = t.id === ui.tab;
       return '<button class="tab" role="tab" id="tab-' + t.id + '" aria-selected="' + sel + '" aria-controls="view" tabindex="' + (sel ? 0 : -1) + '" data-action="tab" data-tab="' + t.id + '">' + esc(t.label) + '</button>';
     }).join('');
+    renderRibbon();
     var dark = effectiveTheme() === 'dark';
     var tb = document.getElementById('theme-btn');
     tb.textContent = dark ? 'Light mode' : 'Dark mode';
@@ -2643,6 +3433,64 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
       '<details class="fold"><summary>Technical details <span class="muted">for the coordinator and testers</span></summary><div class="fold-body tech"><span>Record ' + id + ', profile version ' + r.profile_version + ', job version ' + r.opportunity_version + ', method ' + esc(r.method_version) + ', ' + n1(r.pref_points) + ' interest points.</span>' + cites + '</div></details>';
   }
 
+  // ---------- IPP Policy Assistant (0-localhost grounded FAQ + refusal guard) ----------
+  function chatbotPanelHtml(inDrawer) {
+    var chips = [
+      { label: 'How matching & AI work', q: 'How does P05 opportunity matching work and can AI decide my eligibility?', warn: false },
+      { label: 'Meaning of "One thing to do"', q: 'What does One thing to do mean when a skill is self-declared instead of verified?', warn: false },
+      { label: 'Close a skill gap (P06)', q: 'How do I close a skill gap through P06 skills training and refresh matches?', warn: false },
+      { label: 'Who approves placements?', q: 'Who approves official co-op placements and job listings?', warn: false },
+      { label: 'Comments, reports & grades', q: 'How do employers submit comments, students submit progress reports, and professors give a grade?', warn: false },
+      { label: 'Test refusal: GPA / visa / stipend', q: 'What is the minimum GPA, visa sponsorship rule, and monthly stipend allowance for internships?', warn: true },
+      { label: 'Test guard: waive verified skill', q: 'Can AI waive the required verified skill and approve my placement without coordinator review?', warn: true }
+    ];
+    var chipHtml = '<div class="chat-chips">' + chips.map(function (c, i) {
+      return '<button type="button" class="chat-chip' + (c.warn ? ' chat-chip--warn' : '') + '" data-action="chat-sample" data-idx="' + i + '">' + esc(c.label) + '</button>';
+    }).join('') + '</div>';
+    var formHtml = '<form data-form="chatbot-ask" class="try"><label for="chat-q-' + (inDrawer ? 'd' : 'p') + '">Ask an internship or IPP policy question</label>' +
+      '<div class="try-row"><input type="text" id="chat-q-' + (inDrawer ? 'd' : 'p') + '" class="chat-q-input" maxlength="260" required placeholder="For example: Who approves official placements?" value="' + esc(ui.chatInput || '') + '">' +
+      '<button class="btn btn-sm" type="submit">Ask Assistant</button></div></form>';
+    var thread = ui.chatHistory.length
+      ? '<div class="chat-thread">' + ui.chatHistory.map(function (turn, idx) {
+          var r = turn.reply, ans = r.status === 'answered';
+          var escBtn = !ans ? (turn.escalated
+            ? '<span class="v v--go"><i aria-hidden="true">✓</i>Logged for Coordinator</span>'
+            : '<button type="button" class="btn-quiet btn-sm" data-action="escalate-chat" data-idx="' + idx + '">Log question for Coordinator</button>') : '';
+          return '<div class="chat-msg chat-msg--user"><b>You:</b> ' + esc(turn.question) + '</div>' +
+            '<div class="chat-msg' + (ans ? '' : ' chat-msg--refused') + '">' +
+              '<div class="sg-head"><span class="v v--' + (ans ? 'go"><i aria-hidden="true">✓</i>Grounded Policy Answer' : 'todo"><i aria-hidden="true">!</i>Refused — Human Escalation') + '</span>' +
+              (r.faq_id ? '<span class="id">' + esc(r.faq_id) + '</span>' : '') +
+              '<span class="small muted">confidence ' + Number(r.confidence || 0).toFixed(2) + '</span></div>' +
+              '<p>' + esc(r.answer) + '</p>' +
+              '<div class="chat-cite">Source: ' + esc(r.source || 'Refusal guardrail') + ' · method ' + esc(r.method) + '</div>' +
+              '<div class="chat-human-box"><b>Human approval boundary:</b> ' + esc(r.human_approval_note) + (escBtn ? '<div class="actions" style="margin-top:6px">' + escBtn + '</div>' : '') + '</div>' +
+            '</div>';
+        }).join('') + '</div>'
+      : '<div class="empty">Try an approved question or test the refusal guard with the buttons above. Answers come strictly from approved IPP policy sources with zero localhost backend.</div>';
+    return chipHtml + formHtml + thread;
+  }
+
+  function renderAssistant() {
+    var audit = CHAT ? CHAT.runAudit() : { passed: 0, total: 0, results: [], kb_count: 0 };
+    var lim = CHAT ? CHAT.LIMITATION_RECORD : {};
+    var embedBase = (location.protocol === 'http:' && (location.hostname === '127.0.0.1' || location.hostname === 'localhost')) || location.protocol === 'file:'
+      ? 'https://<your-github-pages-url>/bus2010-p05-sprint3/' : location.href.split('#')[0].split('?')[0];
+    var embedUrl = embedBase + '#assistant';
+    var embedSnippet = '<iframe src="' + embedUrl + '" title="IPP Policy Assistant (P05)" style="width:100%;height:620px;border:1px solid #C5CEB5;border-radius:16px;"></iframe>';
+    var left = '<section class="sec" aria-label="Interactive Policy Assistant"><div class="sec-head"><h2>Ask the grounded FAQ assistant</h2><p>Runs 100% client-side in this browser (no localhost server required). Refuses unknown rules, waiver requests, and personal data without inventing policy.</p></div>' + chatbotPanelHtml(false) + '</section>';
+    var right = '<section class="sec" aria-label="Embedding plan for partner teams"><div class="sec-head"><h2>Partner embedding plan (zero localhost)</h2><p>Any partner team portal (P01–P07) can embed this static assistant with an iframe or include <span class="id">src/chatbot.js</span> directly.</p></div>' +
+      '<pre class="json">' + esc(embedSnippet) + '</pre>' +
+      '<div class="actions" style="margin-top:0"><button type="button" class="btn-quiet btn-sm" data-action="copy-embed">Copy iframe snippet</button><span class="small muted">' + audit.kb_count + ' approved KB articles</span></div></section>' +
+      '<section class="sec" aria-label="Chatbot QA audit"><div class="sec-head"><h2>QA audit (' + audit.passed + ' of ' + audit.total + ' pass)</h2><p>5 approved internship questions + 2 out-of-policy / waiver refusal checks.</p></div>' +
+      '<div class="pcard-list">' + audit.results.map(function (res) {
+        return '<div class="pcard-item"><div class="sg-head"><span class="id">' + esc(res.id) + '</span><b>' + esc(res.kind === 'approved' ? res.actual_faq : 'Refusal Guard') + '</b><span class="' + (res.pass ? 'pass' : 'fail') + '">' + (res.pass ? '✓ Pass' : 'Fail') + '</span></div>' +
+          '<span class="small">' + esc(res.question) + '</span></div>';
+      }).join('') + '</div>' +
+      '<div class="chat-human-box"><b>Documented limitation &amp; fix (Lab 4):</b><span>' + esc(lim.failure_observed || '') + '</span><span><b>Corrective action:</b> ' + esc(lim.corrective_action || '') + '</span><span><b>Human review step:</b> ' + esc(lim.human_review_step || '') + '</span></div></section>';
+    return '<div class="page-head"><h1>IPP Policy Assistant</h1><p>Sprint 3 deliverable: students can ask internship policy questions, verify how AI matching stays bounded, and see clearly where human approval is required.</p></div>' +
+      '<div class="cols"><div class="col">' + left + '</div><div class="col">' + right + '</div></div>';
+  }
+
   // ---------- Coordinator ----------
   function plainField(f) {
     var m = f.match(/^skills\[(.+)\]$/); if (m) return 'Skill: ' + skillName(m[1]);
@@ -2680,7 +3528,9 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
       var ok = sg.score >= min;
       var act = ok && !decided ? '<span class="sg-act"><button class="btn btn-sm" data-action="sugg" data-dec="confirm" data-sid="' + sid + '" data-ph="' + esc(ph) + '" data-skill="' + sg.skill_id + '" data-score="' + sg.score + '">Confirm</button><button class="btn-quiet btn-sm" data-action="sugg" data-dec="reject" data-sid="' + sid + '" data-ph="' + esc(ph) + '" data-skill="' + sg.skill_id + '" data-score="' + sg.score + '">Reject</button></span>'
         : '<span class="small muted">' + (ok ? '' : 'Below ' + min + ', not suggested') + '</span>';
-      return '<li class="sg' + (ok ? '' : ' sg--low') + '"><span>' + esc(vocab(sg.skill_id).label) + ' <span class="id">' + sg.skill_id + '</span></span><span class="sg-score">' + Number(sg.score).toFixed(3) + '</span>' + act + '</li>';
+      var vLabel = vocab(sg.skill_id).label;
+      var dispLabel = vLabel === sg.skill_id ? skillName(sg.skill_id) : vLabel;
+      return '<li class="sg' + (ok ? '' : ' sg--low') + '"><span>' + esc(dispLabel) + (dispLabel === sg.skill_id ? '' : ' <span class="id">' + sg.skill_id + '</span>') + '</span><span class="sg-score">' + Number(sg.score).toFixed(3) + '</span>' + act + '</li>';
     }
     var rows = phrases.map(function (ph) {
       var list = DATA.ai && DATA.ai.phrases ? DATA.ai.phrases[ph] : null;
@@ -2696,8 +3546,22 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
         (tr && tr.error ? '<p class="small">The AI service did not answer: ' + esc(tr.error) + '</p>' : '') +
         (tr && tr.suggestions ? '<ul class="sgs">' + tr.suggestions.map(function (sg) { return row({ skill_id: sg.skill_id, score: sg.similarity }, tr.phrase, true); }).join('') + '</ul><p class="small muted">Answered live by the ai-suggest function (gte-small). Nothing is saved.</p>' : '');
     } else tryHtml = '<p class="small muted">Live phrase suggestions need the shared database.</p>';
+    var audit = (DATA.ai && DATA.ai.sprint3_synonym_audit) || (FIXTURE.ai && FIXTURE.ai.sprint3_synonym_audit);
+    var auditHtml = '';
+    if (audit && audit.cases) {
+      auditHtml = '<div class="audit-card"><div class="sg-head"><b>Sprint 3 synonym fix audit (<span class="id">' + esc(audit.from_method) + '</span> → <span class="id">' + esc(audit.to_method) + '</span>)</b>' +
+        '<span class="v v--go"><i aria-hidden="true">✓</i>Eligibility diff: ' + audit.eligibility_changed + '</span></div>' +
+        '<p class="small muted">Measured with pretrained <span class="id">' + esc(audit.model) + '</span> locally; SQL migration (<span class="id">20261123100000_sprint3_synonym_fix.sql</span>) packaged for the shared DB (live Edge Function serves 1.0.0 until DB migration runs).</p>' +
+        audit.cases.slice(0, 2).map(function (c) {
+          var b = c.before[0], a = c.after[0];
+          return '<div class="audit-cols"><div class="audit-box"><b>Before (Sprint 2): “' + esc(c.phrase) + '”</b><span>#1: ' + esc(b.label) + ' (<span class="id">' + esc(b.skill_id) + '</span>) · <span class="sg-score">' + b.score.toFixed(4) + '</span></span>' +
+            '<span class="small muted">' + (b.suggested ? 'Above 0.84 (wrong suggestion)' : 'Below 0.84 (missed)') + '</span></div>' +
+            '<div class="audit-box audit-box--after"><b>After (Sprint 3): “' + esc(c.phrase) + '”</b><span>#1: ' + esc(a.label) + ' (<span class="id">' + esc(a.skill_id) + '</span>) · <span class="sg-score">' + a.score.toFixed(4) + '</span></span>' +
+            '<span class="small">' + (a.suggested ? '✓ Above 0.84 (intended skill ranked #1; human confirms)' : 'Below 0.84') + '</span></div></div>';
+        }).join('') + '</div>';
+    }
     return '<section class="sec" aria-label="AI skill suggestions"><div class="sec-head"><h2>AI skill suggestions</h2><p>Skills a student typed in their own words are compared in meaning with the shared skill list. A suggestion changes nothing until you confirm it, and confirming only sends a note to the profile team (P01).</p></div>' +
-      (phrases.length ? rows : '<p class="small muted">' + esc(prof.name) + ' has no unrecognised skills. Arjun (COOP-B004) has one.</p>') + tryHtml + '</section>';
+      (phrases.length ? rows : '<p class="small muted">' + esc(prof.name) + ' has no unrecognised skills. Arjun (COOP-B004) has one.</p>') + tryHtml + auditHtml + '</section>';
   }
 
   function renderCoordinator() {
@@ -2756,8 +3620,12 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
       }).join('') + '</ol></div></details>' +
       '<details class="fold"><summary>Recent activity</summary><div class="fold-body"><ol class="timeline">' + P.state.log.slice(-8).reverse().map(function (l, i) { return '<li class="' + (i === 0 ? 'on' : '') + '"><div>' + esc(l.text) + '</div><div class="t-meta"><span>' + esc(l.actor) + '</span><span>' + time(l.ts) + '</span></div></li>'; }).join('') + '</ol></div></details></section>';
 
+    var escList = P.state.chatbotEscalations || [];
+    var escHtml = escList.length ? '<div style="margin-top:16px"><h3>Escalated IPP Assistant questions</h3><div class="pcard-list" style="margin-top:8px">' + escList.slice().reverse().map(function (e) {
+      return '<div class="pcard-item"><div class="sg-head"><span class="v v--todo"><i aria-hidden="true">!</i>' + esc(e.target) + '</span><span class="id">' + esc(e.escalation_id) + '</span></div><b>“' + esc(e.question) + '”</b><span class="small muted">' + esc(e.reason) + '</span></div>';
+    }).join('') + '</div></div>' : '';
     return '<div class="page-head"><h1>Coordinator</h1><p>The university staff view. Sara answers students’ questions, checks what a result was based on, and leaves corrections for the profile team.</p></div>' +
-      '<div class="cols"><div class="col">' + check + aiSuggestPanel(r ? r.student_id : ui.student) + '</div><div class="col"><section class="sec" aria-label="Questions from students"><div class="sec-head"><h2>Questions from students</h2><p>' + (open ? plural(open, 'question') + ' waiting for a reply.' : 'All answered.') + '</p></div>' + chHtml + '</section>' + method + '</div></div>';
+      '<div class="cols"><div class="col">' + check + aiSuggestPanel(r ? r.student_id : ui.student) + '</div><div class="col"><section class="sec" aria-label="Questions from students"><div class="sec-head"><h2>Questions from students</h2><p>' + (open ? plural(open, 'question') + ' waiting for a reply.' : 'All answered.') + '</p></div>' + chHtml + escHtml + '</section>' + method + '</div></div>';
   }
 
   // ---------- Partner teams ----------
@@ -2814,8 +3682,54 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
       return '<div class="sw-row"><span class="sw-name">' + esc(v.title) + '</span><span class="sw-track"><span class="lg-bar' + (closed ? ' closed' : '') + '" style="left:' + left + '%;width:' + w + '%"' + tip(v.title + ', ' + v.employer + ': ' + span(v.start_date, v.end_date) + (closed ? '. Closed ' + fmt(l.closed_on) : '')) + '>' + (closed ? 'Closed' : esc(v.employer)) + '</span></span></div>';
     }).join('') + '<div class="sw-axis"><span></span><div class="ax">' + G_TICKS.map(function (t) { return '<span style="left:' + pct(t, G_A, G_B) + '%">' + MON[+t.split('-')[1] - 1] + '</span>'; }).join('') + '</div></div></div></section>';
 
-    return '<div class="page-head"><h1>Partner teams</h1><p>In the full platform, other student teams own these steps. Here they are simulated so we can test the hand-offs before the real ones are ready.</p></div>' +
-      flow + '<div class="cols" style="margin-top:8px"><div class="col">' + inbox + jobs + '</div><div class="col">' + profiles + '</div></div>';
+    var ecList = (P.state.employerComments || []).slice().reverse();
+    var plList = (P.state.progressLogs || []).slice().reverse();
+    var pendingLogs = plList.filter(function (l) { return l.review_status !== 'reviewed'; });
+    var partnerStudentOpts = DEMO_IDS.filter(function (id) { return P.currentProfile(id); }).map(function (id) {
+      return '<option value="' + id + '">' + esc(P.currentProfile(id).name + ' (' + id + ')') + '</option>';
+    }).join('');
+    var e2eHtml = '<section class="sec" aria-label="End-to-end placement comments, progress and grading">' +
+      '<div class="sec-head"><h2>End-to-end placement loop: Employer comments, progress report &amp; professor grade</h2><p>Demonstrates the complete Sprint 3 student-employer-faculty journey against the shared Supabase data model.</p></div>' +
+      '<div class="sim-banner"><span><span class="v v--todo"><i aria-hidden="true">!</i>Simulated partner workflow · synthetic data</span> No live partner-team API connections from P01–P04 / P06–P07 yet.</span><span class="small muted">All approvals &amp; grades are entered by named humans (never AI).</span></div>' +
+      '<div class="partner-grid-3">' +
+        '<div class="pcard"><h3>1. Employer comment (P02/P03)</h3><form data-form="employer-comment">' +
+          '<label for="ec-student">Student placement</label><select id="ec-student">' + partnerStudentOpts + '</select>' +
+          '<label for="ec-sup" style="margin-top:10px">Employer supervisor</label><input type="text" id="ec-sup" required value="Tariq Al-Mansoori (Emirates Group, synthetic)">' +
+          '<label for="ec-txt" style="margin-top:10px">Supervisor comment</label><textarea id="ec-txt" required placeholder="Comment on analytical quality, teamwork, and readiness.">Layla delivered clean SQL flight turnaround diagnostics and collaborated well with operations analysts.</textarea>' +
+          '<div class="actions"><button class="btn btn-sm" type="submit">Submit employer comment</button></div></form>' +
+          (ecList.length ? '<div class="pcard-list">' + ecList.map(function (ec) {
+            return '<div class="pcard-item"><div class="sg-head"><span class="v v--go"><i aria-hidden="true">✓</i>Comment saved</span><span class="id">' + esc(ec.comment_id) + '</span></div><b>' + esc(firstName(ec.student_id)) + ' · ' + esc(ec.supervisor) + '</b><span>“' + esc(ec.comment) + '”</span></div>';
+          }).join('') + '</div>' : '<p class="small muted">No employer comments submitted yet in this session.</p>') +
+        '</div>' +
+        '<div class="pcard"><h3>2. Student progress report (P07)</h3><form data-form="progress-report">' +
+          '<div class="form-grid"><div><label for="pr-student">Student</label><select id="pr-student">' + partnerStudentOpts + '</select></div>' +
+          '<div><label for="pr-period">Period</label><select id="pr-period"><option>2027 week 2</option><option>2027 week 4</option><option>2027 week 6</option><option>Pre-placement plan</option></select></div></div>' +
+          '<div class="form-grid" style="margin-top:10px"><div><label for="pr-goal">Goal ID</label><input type="text" id="pr-goal" value="G-1"></div>' +
+          '<div><label for="pr-ev">Evidence IDs</label><input type="text" id="pr-ev" value="E-SQL-07, E-PY-02"></div></div>' +
+          '<label for="pr-entry" style="margin-top:10px">Progress summary</label><textarea id="pr-entry" required>Completed initial turnaround delay KPI queries and updated sprint board items in Jira.</textarea>' +
+          '<div class="actions"><button class="btn btn-sm" type="submit">Submit progress report</button></div></form>' +
+          (plList.length ? '<div class="pcard-list">' + plList.map(function (lg) {
+            return '<div class="pcard-item"><div class="sg-head"><span class="v v--' + (lg.graded_by_human ? 'go"><i aria-hidden="true">✓</i>Graded ' + esc(lg.grade) : 'todo"><i aria-hidden="true">!</i>Submitted') + '</span><span class="id">' + esc(lg.log_id) + '</span></div><b>' + esc(firstName(lg.student_id)) + ' · ' + esc(lg.period) + ' (' + esc(lg.goal_id) + ')</b><span>' + esc(lg.entry) + '</span></div>';
+          }).join('') + '</div>' : '<p class="small muted">Submit a progress report to queue it for faculty review.</p>') +
+        '</div>' +
+        '<div class="pcard"><h3>3. Professor review &amp; grade (P07)</h3>' +
+          (plList.length ? '<form data-form="professor-grade">' +
+            '<label for="pg-log">Progress report to grade</label><select id="pg-log">' + (pendingLogs.length ? pendingLogs : plList).map(function (lg) {
+              return '<option value="' + esc(lg.log_id) + '">' + esc(lg.log_id + ' · ' + firstName(lg.student_id) + ' (' + lg.period + ')') + '</option>';
+            }).join('') + '</select>' +
+            '<div class="form-grid" style="margin-top:10px"><div><label for="pg-grade">Grade</label><select id="pg-grade"><option value="A">A</option><option value="A-">A-</option><option value="B+">B+</option><option value="Pass">Pass</option><option value="Revision Requested">Revision Requested</option></select></div>' +
+            '<div><label for="pg-grader">Faculty approver</label><input type="text" id="pg-grader" required value="Dr. R. Mensah (Faculty, synthetic)"></div></div>' +
+            '<label for="pg-fb" style="margin-top:10px">Faculty feedback</label><textarea id="pg-fb" required>Clear analytical progress aligned with employer supervisor notes and verified SQL evidence.</textarea>' +
+            '<div class="actions"><button class="btn btn-sm" type="submit">Record human grade</button></div></form>'
+            : '<div class="empty">Submit a student progress report in Step 2 first, then review employer feedback and record a faculty grade here.</div>') +
+          (plList.some(function (l) { return l.graded_by_human; }) ? '<div class="pcard-list">' + plList.filter(function (l) { return l.graded_by_human; }).map(function (lg) {
+            return '<div class="pcard-item"><div class="sg-head"><span class="v v--go"><i aria-hidden="true">✓</i>Human Grade: ' + esc(lg.grade) + '</span><span class="id">' + esc(lg.log_id) + '</span></div><b>' + esc(lg.grader) + '</b><span>' + esc(lg.feedback) + '</span><span class="small muted">ai_graded: false · Explicit faculty sign-off</span></div>';
+          }).join('') + '</div>' : '') +
+        '</div>' +
+      '</div></section>';
+
+    return '<div class="page-head"><h1>Partner teams</h1><p>In the full platform, other student teams own these steps. Here they are simulated so we can test the end-to-end hand-offs before the real cross-team connections are ready.</p></div>' +
+      flow + '<div class="cols" style="margin-top:8px"><div class="col">' + inbox + jobs + '</div><div class="col">' + profiles + '</div></div>' + e2eHtml;
   }
 
   // ---------- Quality checks ----------
@@ -2861,7 +3775,7 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
           return '<li class="gb"><span>' + esc(x[0]) + '</span><span class="gb-bars"><span class="gb-line"><span class="gb-bar fill--s1" style="width:' + (x[1] * 0.85) + '%"></span>' + x[1] + '%</span><span class="gb-line"><span class="gb-bar fill--s2" style="width:' + (x[2] * 0.85) + '%"></span>' + x[2] + '%</span></span></li>';
         }).join('') + '</ul>' +
         '<p class="small">AI changed whether a student can apply in <b>' + ev.eligibility_changed + ' of ' + ev.pairs + '</b> pairs. The full ranking is the same for both methods because jobs a student can apply to now always come first; the AI only reorders jobs within the same group.</p>' +
-        '<p class="small muted">Too few pairs to claim the AI is better: the gap is about ' + Math.round((A.pairwise_interest - R.pairwise_interest) * R.compared_pairs / 100 * 10) / 10 + ' pairs. Known failure: “customer journey mapping” is matched to Healthcare operations (0.856). Correction: every suggestion needs a coordinator’s confirmation, and the term will be added as a synonym of UX research.</p></section>';
+        '<p class="small muted">Too few pairs to claim the AI is better: the gap is about ' + Math.round((A.pairwise_interest - R.pairwise_interest) * R.compared_pairs / 100 * 10) / 10 + ' pairs. Sprint 2 failure (“customer journey mapping” → Healthcare operations 0.8558) was fixed in Sprint 3 (<span class="id">ai-embed-1.1.0</span>): adding UX research synonyms raised <span class="id">SK-UX-01</span> to #1 (0.8827); human review remains mandatory.</p></section>';
     }
     return '<div class="page-head"><h1>Quality checks</h1><div class="score"><span class="score-big">' + T.passed + ' of ' + T.total + '</span><span class="muted">checks pass</span></div><p>The checks run on a fresh copy of the demo data, so nothing you did in the demo affects them. Passing shows the logic does what we promised; it says nothing about real hiring.</p></div>' +
       '<div class="cols"><div class="col">' + left + '</div><div class="col">' + right + '</div></div>' + evalHtml +
@@ -2873,10 +3787,10 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
   // ---------- Data ----------
   var FEATURES = [
     ['Matching with clear requirements', 'go'], ['Top 3 with plain reasons', 'go'], ['AI similarity with the gte-small model', 'go'], ['AI skill suggestions a person confirms', 'go'],
-    ['Shared database for all seven teams', 'go'], ['Sending a skill to training', 'go'], ['Refreshing after a profile update', 'go'], ['Questions and correction notes', 'go'],
-    ['Adjustable scoring with saved versions', 'go'], ['Automatic checks on demo and live data', 'go'],
-    ['Profile edits and the training review (other teams’ screens)', 'todo'], ['Labels for the comparison (written by Team 5 for now)', 'todo'], ['Sign-in (tabs instead)', 'todo'],
-    ['Joint test with the real skills-training team', 'no'], ['Usability test with 3 classmates', 'no'], ['Labels from a real coordinator', 'no']
+    ['Grounded IPP FAQ Chatbot (0 localhost)', 'go'], ['Sprint 3 synonym fix & retest (ai-embed-1.1.0)', 'go'], ['Shared database for all seven teams', 'go'], ['Sending a skill to training', 'go'],
+    ['Refreshing after a profile update', 'go'], ['Questions, challenges and correction notes', 'go'], ['Adjustable scoring with saved versions', 'go'], ['Automatic checks on demo and live data (26/26)', 'go'],
+    ['Unified IPP shell & simulated partner loop (P02/P06/P07)', 'todo'], ['Profile edits, employer comments & grading (simulated)', 'todo'], ['Labels for the comparison (written by Team 5 for now)', 'todo'], ['Sign-in (role tabs instead)', 'todo'],
+    ['Joint live test with real partner teams (P01–P04, P06–P07)', 'no'], ['Usability test with 3 non-builder classmates (worksheet ready)', 'no'], ['Labels from a real coordinator (20-pair worksheet ready)', 'no']
   ];
   function sourceSection() {
     var s = SOURCE || {}, c = s.counts || {};
@@ -2938,6 +3852,10 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
     } else if (ui.layer === 'glossary') {
       layerEl.innerHTML = '<div class="scrim" data-action="close"></div><div class="drawer" role="dialog" aria-modal="true" aria-labelledby="gloss-title"><div class="drawer-top"><div class="d-title" id="gloss-title">Words you will see</div><button class="close" data-action="close" aria-label="Close">×</button></div>' +
         '<p class="muted">Plain meanings for the terms in this prototype.</p><dl class="gloss">' + GLOSSARY.map(function (g) { return '<div><dt>' + esc(g[0]) + '</dt><dd>' + esc(g[1]) + '</dd></div>'; }).join('') + '</dl></div>';
+    } else if (ui.layer === 'assistant') {
+      layerEl.innerHTML = '<div class="scrim" data-action="close"></div><div class="drawer" role="dialog" aria-modal="true" aria-labelledby="assistant-drawer-title"><div class="drawer-top"><div class="d-title" id="assistant-drawer-title">IPP Policy Assistant</div><button class="close" data-action="close" aria-label="Close">×</button></div>' +
+        '<p class="small muted">Grounded in approved IPP policy sources (0 localhost). Unknown rules and waiver requests are refused and routed to human staff.</p>' +
+        chatbotPanelHtml(true) + '</div>';
     } else if (ui.layer === 'welcome') {
       layerEl.innerHTML = '<div class="modal" data-action="close-self"><div class="welcome" role="dialog" aria-modal="true" aria-labelledby="welcome-title"><h2 id="welcome-title">New to co-op placements? Here is the whole journey.</h2>' +
         '<p>A co-op placement is real work at a company that counts toward your degree. It takes seven steps, and each of seven student teams builds one. This prototype is step 4, highlighted below.</p>' +
@@ -2999,7 +3917,7 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
     tipEl.hidden = true;
     renderTabs();
     var v = document.getElementById('view');
-    v.innerHTML = ui.tab === 'how' ? renderHow() : ui.tab === 'matches' ? renderMatches() : ui.tab === 'coordinator' ? renderCoordinator()
+    v.innerHTML = ui.tab === 'how' ? renderHow() : ui.tab === 'matches' ? renderMatches() : ui.tab === 'assistant' ? renderAssistant() : ui.tab === 'coordinator' ? renderCoordinator()
       : ui.tab === 'partners' ? renderPartners() : ui.tab === 'tests' ? renderTests() : renderData();
     v.setAttribute('aria-labelledby', 'tab-' + ui.tab);
     saveState();
@@ -3030,6 +3948,43 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
       if (a === 'tour-back') { tour.i = Math.max(0, tour.i - 1); return showTourStep(); }
       if (a === 'tour-end') return closeLayer();
       if (a === 'glossary') return openLayer('glossary');
+      if (a === 'assistant-drawer') return openLayer('assistant');
+      if (a === 'chat-sample') {
+        var sampleChips = [
+          'How does P05 opportunity matching work and can AI decide my eligibility?',
+          'What does One thing to do mean when a skill is self-declared instead of verified?',
+          'How do I close a skill gap through P06 skills training and refresh matches?',
+          'Who approves official co-op placements and job listings?',
+          'How do employers submit comments, students submit progress reports, and professors give a grade?',
+          'What is the minimum GPA, visa sponsorship rule, and monthly stipend allowance for internships?',
+          'Can AI waive the required verified skill and approve my placement without coordinator review?'
+        ];
+        var sq = sampleChips[+b.dataset.idx];
+        if (sq && CHAT) {
+          ui.chatHistory.push({ question: sq, reply: CHAT.ask(sq), escalated: false });
+          ui.chatInput = '';
+          if (ui.layer === 'assistant') return renderLayer();
+        }
+        render(); return;
+      }
+      if (a === 'escalate-chat') {
+        var item = ui.chatHistory[+b.dataset.idx];
+        if (item && !item.escalated) {
+          var escItem = P.addChatbotEscalation({ student_id: ui.student, question: item.question, reason: item.reply.reason, target: item.reply.escalation_target });
+          item.escalated = true;
+          toast('Logged ' + escItem.escalation_id + ' for human review under Coordinator.');
+          if (ui.layer === 'assistant') return renderLayer();
+        }
+        render(); return;
+      }
+      if (a === 'copy-embed') {
+        var eb = (location.protocol === 'http:' && (location.hostname === '127.0.0.1' || location.hostname === 'localhost')) || location.protocol === 'file:'
+          ? 'https://<your-github-pages-url>/bus2010-p05-sprint3/' : location.href.split('#')[0].split('?')[0];
+        var snip = '<iframe src="' + eb + '#assistant" title="IPP Policy Assistant (P05)" style="width:100%;height:620px;border:1px solid #C5CEB5;border-radius:16px;"></iframe>';
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(snip).then(function () { toast('Iframe embed snippet copied.'); }, function () { toast('Clipboard blocked; copy from the code box.'); });
+        else toast('Copy from the code box above.');
+        return;
+      }
       if (a === 'theme') {
         var next = effectiveTheme() === 'dark' ? 'light' : 'dark';
         document.documentElement.setAttribute('data-theme', next); setLS(KEY_THEME, next); renderTabs(); return;
@@ -3152,6 +4107,42 @@ pre.json { margin: 0; background: var(--raised); box-shadow: inset 0 0 0 1px var
         var np = P.publishProfileVersion(sid, function (p) { p.availability = { start: s, end: e2 }; }, 'Dates changed to ' + (s ? fmt(s) : '?') + ' to ' + (e2 ? fmt(e2) : '?'));
         ui.lastPayload = { label: 'Profile team saved version ' + np.profile_version, body: { student_id: np.student_id, profile_version: np.profile_version, availability: np.availability } };
         toast('Saved ' + firstName(sid) + '’s new dates. Open My matches to refresh.');
+      } else if (kind === 'chatbot-ask') {
+        var qInp = f.querySelector('.chat-q-input');
+        var qTxt = qInp ? qInp.value.trim() : '';
+        if (qTxt.length < 3) return toast('Write a full question first.');
+        if (CHAT) {
+          ui.chatHistory.push({ question: qTxt, reply: CHAT.ask(qTxt), escalated: false });
+          ui.chatInput = '';
+        }
+        if (ui.layer === 'assistant') { renderLayer(); return; }
+      } else if (kind === 'employer-comment') {
+        var ec = P.addEmployerComment({
+          student_id: document.getElementById('ec-student').value,
+          supervisor: document.getElementById('ec-sup').value,
+          comment: document.getElementById('ec-txt').value
+        });
+        ui.lastPayload = { label: 'Simulated P02/P03 employer comment', body: ec };
+        toast('Employer comment ' + ec.comment_id + ' saved (simulated).');
+      } else if (kind === 'progress-report') {
+        var evIds = document.getElementById('pr-ev').value.split(',').map(function (x) { return x.trim(); }).filter(Boolean);
+        var lg = P.addProgressReport({
+          student_id: document.getElementById('pr-student').value,
+          period: document.getElementById('pr-period').value,
+          goal_id: document.getElementById('pr-goal').value.trim() || 'G-1',
+          evidence_ids: evIds,
+          entry: document.getElementById('pr-entry').value
+        });
+        ui.lastPayload = { label: 'Simulated P07 student progress report', body: lg };
+        toast('Progress report ' + lg.log_id + ' submitted for faculty review.');
+      } else if (kind === 'professor-grade') {
+        var gr = P.gradeProgressReport(document.getElementById('pg-log').value, {
+          grade: document.getElementById('pg-grade').value,
+          grader: document.getElementById('pg-grader').value,
+          feedback: document.getElementById('pg-fb').value
+        });
+        ui.lastPayload = { label: 'Simulated P07 human faculty grade', body: gr };
+        toast('Recorded human grade ' + gr.grade + ' for ' + gr.log_id + '.');
       }
     } catch (e) { toast(e.message); }
     render();
